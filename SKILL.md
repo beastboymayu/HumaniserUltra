@@ -139,53 +139,53 @@ These are qualitative goals, not computed metrics. Follow the guidance to hit th
 40. **Persuasive Authority Tropes**: "The real question is...", "At its core...", "What really matters is...", "Fundamentally..." → state the point directly without the ceremony.
 
 ### Communication
-39. **Chatbot Artifacts**: "I hope this helps! Let me know if..." → delete.
-40. **Knowledge-Cutoff**: "While details are limited..." → find source or state "not documented."
-41. **Sycophantic Tone**: "Great question!" → respond to substance.
+41. **Chatbot Artifacts**: "I hope this helps! Let me know if..." → delete.
+42. **Knowledge-Cutoff**: "While details are limited..." → find source or state "not documented."
+43. **Sycophantic Tone**: "Great question!" → respond to substance.
 
 ### Structural
-42. **Uniform Paragraphs**: 3-5 sentences each → vary 1-8+.
-43. **Symmetrical Arguments**: Equal weight to every point → spend more on what matters.
-44. **4-Beat Progression**: Opening→Expansion→Contrast→Resolution → break pattern.
-45. **Hedge-Assertion Pairs**: "While X, Y" → "X. Y."
-46. **Participial Clauses** (5.3x): "Running through..." → main clauses.
-47. **"That" Subjects** (2.6x): "That this matters..." → "This matters..."
-48. **Nominalizations** (2.1x): "implementation of" → "implementing".
+44. **Uniform Paragraphs**: 3-5 sentences each → vary 1-8+.
+45. **Symmetrical Arguments**: Equal weight to every point → spend more on what matters.
+46. **4-Beat Progression**: Opening→Expansion→Contrast→Resolution → break pattern.
+47. **Hedge-Assertion Pairs**: "While X, Y" → "X. Y."
+48. **Participial Clauses** (5.3x): "Running through..." → main clauses.
+49. **"That" Subjects** (2.6x): "That this matters..." → "This matters..."
+50. **Nominalizations** (2.1x): "implementation of" → "implementing".
 
 ### Model Fingerprints
-49. **ChatGPT**: Em-dashes 3x, "In today's digital age", hedge phrases, "delve into".
-50. **Claude**: Flowing paragraphs, qualification endings, context-before-answer.
-51. **Gemini**: Simpler vocabulary, "might" overuse, clinical tone.
-52. **Grok**: Internet slang, sarcasm, 0% sycophancy, Grade 7-8.
-53. **GPT-5+**: Reduced em-dashes, framing verb clusters, deliberate imperfections.
-54. **Claude Opus 4.5**: Em-dash 16.8x, colon 4.1x, "comprehensive" 24x, "fundamentally" 17x.
-55. **DeepSeek-R1**: 74.2% classified as OpenAI. Most detectable (93% Turnitin).
+51. **ChatGPT**: Em-dashes 3x, "In today's digital age", hedge phrases, "delve into".
+52. **Claude**: Flowing paragraphs, qualification endings, context-before-answer.
+53. **Gemini**: Simpler vocabulary, "might" overuse, clinical tone.
+54. **Grok**: Internet slang, sarcasm, 0% sycophancy, Grade 7-8.
+55. **GPT-5+**: Reduced em-dashes, framing verb clusters, deliberate imperfections.
+56. **Claude Opus 4.5**: Em-dash 16.8x, colon 4.1x, "comprehensive" 24x, "fundamentally" 17x.
+57. **DeepSeek-R1**: 74.2% classified as OpenAI. Most detectable (93% Turnitin).
 
 ### Spectral & Statistical
-56. **Uniform Token Probability**: Smoothed signals from decoding strategies. Fix: different model rewrite, temp 0.7-1.0.
-57. **Low Spectral Energy**: Lower DFT total energy. Fix: unexpected word choices, mix predictable and creative.
-58. **Recovery Pattern**: After surprise, returns to predictable immediately. Fix: keep surprise going 2+ sentences.
-59. **Low Dependency Entropy**: Formulaic syntactic transitions. Fix: vary dependency labels, embed clauses.
-60. **Uniform POS Distribution**: Fix: vary POS patterns across paragraphs.
-61. **Low Type-Token Ratio**: Fix: increase lexical diversity, use domain terminology.
-62. **N-gram Repetition**: Fix: vary sentence openings, don't start consecutive sentences same way.
+58. **Uniform Token Probability**: Smoothed signals from decoding strategies. Fix: different model rewrite, temp 0.7-1.0.
+59. **Low Spectral Energy**: Lower DFT total energy. Fix: unexpected word choices, mix predictable and creative.
+60. **Recovery Pattern**: After surprise, returns to predictable immediately. Fix: keep surprise going 2+ sentences.
+61. **Low Dependency Entropy**: Formulaic syntactic transitions. Fix: vary dependency labels, embed clauses.
+62. **Uniform POS Distribution**: Fix: vary POS patterns across paragraphs.
+63. **Low Type-Token Ratio**: Fix: increase lexical diversity, use domain terminology.
+64. **N-gram Repetition**: Fix: vary sentence openings, don't start consecutive sentences same way.
 
 ### Structural Deep
-63. **Entity Abandonment**: New entities every paragraph without recurrence. Fix: track and reference.
-64. **Uniform Discourse**: Mostly "Elaboration"/"Continuation". Fix: add Contrast, Cause, Condition.
-65. **Middle-Register Default**: "Middle-ground" text. Fix: match target register exactly.
-66. **Semantic Smoothness**: No rough edges. Fix: add tangents, self-corrections.
-67. **Nominalization Overuse** (2.1x): "implementation" → "implementing".
-68. **Coordination > Subordination**: Fix: use "although," "because," "when."
-69. **Direct Object Position**: Objects at later positions. Fix: vary placement.
+65. **Entity Abandonment**: New entities every paragraph without recurrence. Fix: track and reference.
+66. **Uniform Discourse**: Mostly "Elaboration"/"Continuation". Fix: add Contrast, Cause, Condition.
+67. **Middle-Register Default**: "Middle-ground" text. Fix: match target register exactly.
+68. **Semantic Smoothness**: No rough edges. Fix: add tangents, self-corrections.
+69. **Nominalization Overuse** (2.1x): "implementation" → "implementing".
+70. **Coordination > Subordination**: Fix: use "although," "because," "when."
+71. **Direct Object Position**: Objects at later positions. Fix: vary placement.
 
 ### Watermarks & Detectors
-70. **OpenAI Watermark**: Statistical patterns in word selection. Removed by 50%+ word changes.
-71. **Google SynthID**: Probability score adjustments. Removed by significant rewriting.
-72. **Turnitin AI-Paraphrased** (May 2026): Flags humanizer-processed text. Needs deeper structural changes.
-73. **Originality.ai Deep Scan**: Catches batch-generated feel. Light editing reduces ~15% only.
-74. **Ensemble Detection**: Multiple detectors combined. Must address ALL signals simultaneously.
-75. **Pangram Labs**: Synthetic mirrors, different detection axis entirely.
+72. **OpenAI Watermark**: Statistical patterns in word selection. Removed by 50%+ word changes.
+73. **Google SynthID**: Probability score adjustments. Removed by significant rewriting.
+74. **Turnitin AI-Paraphrased** (May 2026): Flags humanizer-processed text. Needs deeper structural changes.
+75. **Originality.ai Deep Scan**: Catches batch-generated feel. Light editing reduces ~15% only.
+76. **Ensemble Detection**: Multiple detectors combined. Must address ALL signals simultaneously.
+77. **Pangram Labs**: Synthetic mirrors, different detection axis entirely.
 
 ---
 
