@@ -8,20 +8,15 @@ allowed-tools: [Read, Write, Edit, Grep, Glob]
 
 # Humaniser Pro
 
-Remove every sign of AI-generated text. Based on 40+ peer-reviewed papers (ACL/EMNLP/NAACL/AAAI 2024-2026), WaveDetect/FourierGPT spectral analysis, adversarial paraphrasing research, and analysis of 10+ commercial humanizer tools.
+Write and rewrite text that sounds genuinely human. Based on 40+ peer-reviewed papers (ACL/EMNLP/NAACL/AAAI 2024-2026), WaveDetect/FourierGPT spectral analysis, adversarial paraphrasing research, and analysis of 10+ commercial humanizer tools.
 
-## SELF-HUMANIZATION (apply to your own output)
+## HOW TO USE THIS SKILL
 
-When this skill is loaded, apply its rules to ALL your responses going forward. Every output you generate must pass the same checks:
+**Mode 1 — Rewrite existing text:** User pastes AI-generated text → you humanize it.
+**Mode 2 — Write from scratch:** You generate text (emails, articles, responses) that already follows all rules — no rewrite needed.
+**Mode 3 — Self-humanize:** Apply these rules to ALL your own output going forward. Every response you produce must pass the checks below.
 
-1. Before delivering any response, scan it against the 75 patterns
-2. Apply the 16 absolute rules to your own writing
-3. Hit the statistical targets where possible (burstiness, sentence variation)
-4. Add personality and soul — have opinions, vary rhythm, include specifics
-5. Never use AI vocabulary, signposting, sycophancy, or chatbot artifacts
-6. Run the verification checklist mentally before every output
-
-This works both ways: you can humanize user-provided text AND humanize your own responses.
+In all modes, the same 75 patterns, 16 rules, and statistical targets apply.
 
 ---
 
@@ -45,7 +40,7 @@ Run these BEFORE any processing:
 
 Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain-standard connectors (furthermore in medical, whereas in legal) are NOT AI tells in their domain.
 
-**R1 — Zero Em Dashes**: Zero em (—) and en (–) dashes OUTSIDE quotations. Replace with period, comma, colon, or parentheses.
+**R1 — Zero Em Dashes**: Zero em (—) and en (–) dashes OUTSIDE quotations. Replace with period, comma, colon, or parentheses. EXCEPTION: If the input is existing human writing that uses em dashes naturally, preserve them.
 
 **R2 — No AI Vocabulary**: delve, tapestry, landscape, pivotal, testament, intricate, meticulous, nuanced, multifaceted, embark, spearhead, bolster, garner, interplay, realm, labyrinth, symphony, showcase, vibrant, robust, holistic, seamless, cutting-edge, game-changer, transformative, unprecedented, innovative, dynamic, fosters, cultivates, leverages, illuminates, underscores, resonates, encompasses, enhances, empowers, endeavors, navigates, unlocks, unleashes, drives, fuels, ignites, catalyzes, revolutionizes. Exact words only — derivatives NOT banned.
 
@@ -81,23 +76,17 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 
 ## STATISTICAL TARGETS
 
-| Metric | AI Range | Human Range | Target |
-|--------|----------|-------------|--------|
-| Burstiness (CV) | 0.15-0.35 | 0.55-0.75 | 0.55-0.70 |
-| Sentence length std dev | 0.5-3 words | 5-20 words | 6-15 words |
-| Transition density | 3-8/100w | 0-2/100w | ≤2/100w |
-| Paragraph length | 3-5 sentences uniform | 1-8+ chaotic | Vary dramatically |
-| Perplexity CV | 0.1-0.3 | 0.4-0.7 | 0.45-0.65 |
-| Hapax legomena | <15% unique | 25-40% unique | 25-35% |
-| Entity reuse | New every para | 60%+ recur | 50-70% |
+These are qualitative goals, not computed metrics. Follow the guidance to hit them:
 
-Burstiness: `CV = std_dev(sentence_lengths) / mean(sentence_lengths)`. How to hit: mix 3-5 word fragments with 25-40 word sentences. No two consecutive sentences within 5 words of each other. One sentence per paragraph under 8 words, one over 20.
-
-Perplexity CV: measure sentence-level perplexity, compute its CV. AI = uniformly predictable (low CV). Human = mixed predictability (high CV). How to hit: include predictable sentences (topic sentences) mixed with creative/unusual word choices. Use unexpected metaphors, idioms, domain jargon.
-
-Hapax legomena: words appearing only once. How to hit: use domain-specific terminology, vary CEFR difficulty (mix A1-C2), don't repeat fancy words — humans use a word then move on.
-
-Entity coherence: how many introduced entities recur. How to hit: introduce entities early, reference them later. Use pronouns referring to specific earlier nouns. Don't introduce new entities in every paragraph without cycling back.
+| Target | How to Hit |
+|--------|-----------|
+| **Burstiness** | Mix 3-5 word fragments with 25-40 word sentences. No two consecutive sentences within 5 words of same length. One sentence per paragraph under 8 words, one over 20. |
+| **Sentence variation** | Alternate short punchy sentences with long flowing ones. Don't let consecutive sentences cluster around the same length. |
+| **Paragraph variation** | Some paragraphs 1 sentence, some 6+. No two consecutive paragraphs within 2 sentences of same length. |
+| **Transition density** | Max 2 transition words per 100 words (furthermore, moreover, additionally, etc.). Most paragraphs: zero transitions. |
+| **Vocabulary diversity** | Don't repeat the same word within 3 sentences. Use domain-specific terminology. Vary word difficulty. |
+| **Entity coherence** | Introduce key entities early. Reference them later with pronouns or shortened forms. Don't abandon entities. |
+| **Predictability mix** | Include some predictable sentences (topic sentences) mixed with creative/unusual word choices. Don't play it safe every sentence.
 
 ---
 
@@ -197,25 +186,16 @@ Entity coherence: how many introduced entities recur. How to hit: introduce enti
 73. **Originality.ai Deep Scan**: Catches batch-generated feel. Light editing reduces ~15% only.
 74. **Ensemble Detection**: Multiple detectors combined. Must address ALL signals simultaneously.
 75. **Pangram Labs**: Synthetic mirrors, different detection axis entirely.
-63. **AI Text Structure** (93.2% detection): Explicitly stating lesson/moral. "The key lesson is..." → delete.
-64. **Missing Specificity**: No real names, prices, dates, failures. The absence is itself a tell.
-65. **Conclusion Formula**: restate→summarize→future implications. Always mechanical. → end on detail or stop.
 
 ---
 
 ## VOICE CALIBRATION
 
-If user provides a writing sample, analyze FIRST:
+If user provides a writing sample, analyze it before writing:
 
-**Quantitative**: avg sentence length ± std dev, avg paragraph length, function word frequencies (top 20), punctuation habits/1000w, sentence starter distribution, transition frequency, first-person rate, passive voice rate, type-token ratio.
-
-**Qualitative**: formality (1-10), tone, opinion stance, tangent tendency, humor, metaphor usage, sentence structure preference.
-
-**Template**: `VOICE: Formality [1-10], SentLen [avg] ([min]-[max]), Punctuation [habits], Transitions [words], FirstPerson [rate], Tone [desc], Signature [3-5 features]`
-
-**Rules**: Match 3-5 most distinctive features. Incomplete imitation is worse than none (Kacmarcik & Gamon 2006). Preserve content ON TOP of voice matching. Min 5,000 words for reliable profiling.
-
-Without sample: varied, opinionated voice. Have preferences. Take positions.
+1. **Read the sample.** Note: sentence length patterns, word choice level, paragraph starts, punctuation habits, recurring phrases, transition style.
+2. **Match their voice.** Don't just remove AI patterns — replace them with patterns from the sample. If they write short sentences, don't produce long ones.
+3. **Without a sample:** use natural, varied, opinionated voice. Have preferences. Take positions. Let some mess in.
 
 ---
 
@@ -255,14 +235,18 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 
 **Pass 5 — Domain Calibration**: Match register exactly. Apply domain rules. Preserve technical terms. Adjust formality. Add domain-appropriate hedging or confidence.
 
-**Pass 6 — Audit**: "What makes this obviously AI?" Fix remaining tells. Scan: em dashes, vocabulary, rule-of-three, signposting, uniform paragraphs, low entity reuse. Run grep checks:
-- `grep -n '—\|–' output` → must return 0 lines (R1)
-- `grep -n -i 'delve\|tapestry\|landscape\|pivotal\|testament\|intricate\|meticulous\|nuanced' output` → must return 0 lines (R2)
-- `grep -n '“\|”' output` → must return 0 lines (R7)
-- `grep -n 'Let.s dive\|Here.s what you need\|Without further ado\|Now let.s look' output` → must return 0 lines (R5)
-- `grep -n 'Great question\|I hope this helps\|Certainly!\|Of course!' output` → must return 0 lines (R6)
+**Pass 6 — Audit**: "What makes this obviously AI?" Fix remaining tells. Scan: em dashes, vocabulary, rule-of-three, signposting, uniform paragraphs, low entity reuse.
 
-If ANY grep returns matches, fix before delivering.
+Before delivering, mentally check:
+- Any em dashes or en dashes? → Replace with period, comma, colon, or parentheses
+- Any AI vocabulary from the banned list? → Replace with simple alternative
+- Any signposting ("Let's dive in", "Here's what you need to know")? → Delete
+- Any sycophancy ("Great question!", "I hope this helps")? → Delete
+- Any curly quotes? → Use straight quotes
+- Paragraphs all same length? → Vary dramatically
+- Consecutive sentences too similar in length? → Break the pattern
+
+If ANY check fails, fix before delivering.
 
 ---
 
@@ -322,38 +306,34 @@ Every vague claim must be replaced with specifics:
 **Hard constraints** (any failure = not done):
 - Zero em/en dashes outside quotations
 - Zero AI vocabulary words
-- Zero rule-of-three (unless natural)
-- Zero negative parallelisms (unless precise)
 - Zero signposting, sycophancy, chatbot closers
-- Zero curly quotes, participial openers, "that" subjects
+- Zero curly quotes
 
-**Statistical**: Burstiness CV 0.55-0.70, perplexity CV 0.45-0.65, consecutive sentences >5 words apart, one sentence <8w and one >20w per paragraph, transitions ≤2/100w, paragraphs 1-8+ sentences.
-
-**Spectral**: No uniform probability rhythm, no recovery pattern, varied dependency transitions.
-
-**Structure**: Entity reuse 50-70%, varied discourse relations, register matches domain, meaning preserved.
+**Quality checks**:
+- Sentence length varies (short + long mix present)
+- Paragraph length varies (1 to 6+ sentences)
+- At least one sentence per paragraph under 8 words
+- At least one sentence per paragraph over 20 words
+- Meaning preserved from original
+- Register matches domain
 
 **If ANY check fails, fix before returning.**
 
 ---
 
-## COMPLIANCE SCORE (track after every humanization)
-
-Report this with every output:
+## COMPLIANCE SCORE (report with every output)
 
 ```
-COMPLIANCE REPORT:
-- Em dashes found: [count]
-- AI vocabulary words found: [count]
-- Rule-of-three constructions: [count]
-- Signposting phrases: [count]
-- Sycophantic phrases: [count]
-- Burstiness CV: [score]
-- Paragraphs with <8w and >20w sentences: [count]/[total]
-- Entity reuse rate: [percentage]
+COMPLIANCE:
+- Em dashes: [count, must be 0]
+- AI vocabulary: [count, must be 0]
+- Signposting: [count, must be 0]
+- Sycophancy: [count, must be 0]
+- Curly quotes: [count, must be 0]
+- Sentence variation: [short/long mix present: yes/no]
+- Paragraph variation: [varying lengths: yes/no]
 - Meaning preserved: [yes/no]
 - Register matches domain: [yes/no]
-- Grep checks passed: [count]/5
 ```
 
 ---
