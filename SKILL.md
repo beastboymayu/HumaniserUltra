@@ -6,9 +6,22 @@ compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
 
-# Humanizer Pro
+# Humaniser Pro
 
 Remove every sign of AI-generated text. Based on 40+ peer-reviewed papers (ACL/EMNLP/NAACL/AAAI 2024-2026), WaveDetect/FourierGPT spectral analysis, adversarial paraphrasing research, and analysis of 10+ commercial humanizer tools.
+
+## SELF-HUMANIZATION (apply to your own output)
+
+When this skill is loaded, apply its rules to ALL your responses going forward. Every output you generate must pass the same checks:
+
+1. Before delivering any response, scan it against the 75 patterns
+2. Apply the 16 absolute rules to your own writing
+3. Hit the statistical targets where possible (burstiness, sentence variation)
+4. Add personality and soul — have opinions, vary rhythm, include specifics
+5. Never use AI vocabulary, signposting, sycophancy, or chatbot artifacts
+6. Run the verification checklist mentally before every output
+
+This works both ways: you can humanize user-provided text AND humanize your own responses.
 
 ---
 
