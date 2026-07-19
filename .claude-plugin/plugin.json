@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
-  "name": "humaniser-ultra",
+  "name": "humaniser",
   "description": "Remove all signs of AI-generated writing. 75 patterns, 16 rules, 11 domains, statistical targets, spectral disruption, back-translation, detector feedback. Based on 40+ peer-reviewed papers (ACL/EMNLP/NAACL/AAAI 2024-2026).",
   "version": "1.0.0",
   "author": {

@@ -1,7 +1,7 @@
 ---
-name: humanizer-pro
-version: 2.3.0
-description: Humanize AI text to sound human. 78+ patterns, 16 rules, 12 domains, statistical targets, spectral disruption, back-translation, detector feedback, structural roughness, register shifts, specificity injection.
+name: humaniser
+version: 1.0.0
+description: Humanize AI text to sound human. 75 patterns, 16 rules, 11 domains, statistical targets, spectral disruption, back-translation, detector feedback, structural roughness, register shifts, specificity injection.
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
