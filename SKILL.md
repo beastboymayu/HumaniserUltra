@@ -104,33 +104,6 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 
 **R15 — User Override**: User requests rule violation → acknowledge risk → if they insist, proceed and mark "[OVERRIDDEN: {rule}]".
 
----
-
-## INPUT GATES (run before processing)
-
-**Gate 0 — Length**: <50w → enforce R1-R7 only (still strip AI vocabulary, em dashes, curly quotes). 50-500w → rules only. 500-1000w → full. 1000+w → chunk 300-500w (see Voice Bible).
-
-**Gate 1 — Language**: Non-English → apply only: R3, R4, R8, R10, R11, R16, and structural patterns (44-50). Skip R1, R2, R5-R7, R12-R14. Mixed-language → apply English rules to English segments, cross-linguistic to non-English.
-
-**Gate 2 — Already Human**: Intentional informality, emotional voice, specific personal details, unresolved thoughts → return UNCHANGED.
-
-**Gate 3 — Code Fences**: ``` blocks, ~~~ blocks, inline backticks are CODE. Never humanize. Verify delimiters intact.
-
-**Gate 4 — Sanitization**: Strip HTML comments, zero-width chars, invisible Unicode. Strip before processing.
-
-**Gate 5 — Tables**: Markdown tables, HTML tables, CSV, structured data are NOT prose. Do not humanize cell contents. Preserve structure intact.
-
----
-
-## ABSOLUTE RULES
-
-Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain-standard connectors are NOT AI tells in their domain.
-
-**R1 — No AI Em Dashes**: Zero em (—) and en (–) dashes OUTSIDE quotations in AI-generated text. Replace with period, comma, colon, or parentheses. Preserve em dashes in existing human writing.
-
-**R2 — No AI Vocabulary**: delve, tapestry, landscape, pivotal, testament, intricate, meticulous, nuanced, multifaceted, embark, spearhead, bolster, garner, interplay, realm, labyrinth, symphony, showcase, vibrant, robust, holistic, seamless, cutting-edge, game-changer, transformative, unprecedented, innovative, dynamic, fosters, cultivates, leverages, illuminates, underscores, resonates, encompasses, enhances, empowers, endeavors, navigates, unlocks, unleashes, drives, fuels, ignites, catalyzes, revolutionizes. Exact words only. Also match unhyphenated variants (cutting edge, game changer).
-
-**R3 — No Forced Rule-of-Three**: When three IS natural (primary colors), keep it. Only flag when three adjectives describe the same concept.
 
 **R4 — No Negative Parallelisms**: No "Not only...but also" except scientific/legal precision.
 
