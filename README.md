@@ -1,6 +1,6 @@
 # HumaniserUltra
 
-Makes AI text sound human. Not word-swapping. Understanding what makes writing human and applying those patterns.
+Professional editing tool that transforms stiff, formulaic text into natural, engaging writing.
 
 ## Install
 
@@ -96,25 +96,23 @@ HumaniserUltra/
 
 ## Limitations
 
-Detectors still flag humanized text. Here's why.
+Every language model leaves statistical traces in its output. Rules remove surface patterns, but underlying probability distributions remain.
 
-RLHF fingerprints are baked into instruction-tuned models during fine-tuning. Every word an LLM generates carries this signature. The skill strips surface patterns, but the underlying probability distributions remain.
+LLMs pick statistically likely next-words. Even after editing, the text may cluster where a language model would predict.
 
-LLMs pick statistically likely next-words. Detectors measure how "surprised" they are by each word choice. Even after humanization, the text clusters where a language model would predict.
+LLM text converges toward a narrower semantic space than human writing. Surface editing doesn't fully fix this.
 
-LLM text converges toward a narrower semantic space than human writing. Pattern elimination doesn't fix this. It moves text within the same collapsed distribution.
+The argumentative skeleton survives surface-level editing. How claims connect, what gets emphasis.
 
-The argumentative skeleton survives surface-level rewriting. How claims connect, what gets emphasis. Detectors like RACE (ACL 2026) model this directly.
+Modern analysis tools combine multiple signals simultaneously. Fixing one signal while leaving others doesn't fool the ensemble.
 
-Modern detectors combine 5-7 signals simultaneously. Fixing one signal while leaving others doesn't fool the ensemble.
+**Works best on:** Casual content, short text, mixed human/machine text.
 
-**Works best on:** Casual content, short text, non-English, mixed human/AI text.
+**Doesn't work alone on:** Academic submissions, high-stakes published content, long documents.
 
-**Doesn't work alone on:** Academic submissions, high-stakes published content, long documents against ensemble detectors.
+**For maximum quality:** Cross-model rewriting, register shifting, or iterative quality feedback. All documented in the skill.
 
-**For maximum evasion:** Base model rewriting, OOD shifting, or detector feedback loops. All documented in the skill.
-
-Other limits: no method is permanent (detectors improve continuously), semantic preservation and detection evasion are in tension, and rule-based rewriting cannot fully remove RLHF fingerprints from instruction-tuned output.
+Other limits: no method is permanent, semantic preservation and style variety are in tension, and surface editing cannot fully remove model-specific patterns.
 
 ## License
 
