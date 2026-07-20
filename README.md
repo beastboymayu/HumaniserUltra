@@ -1,44 +1,6 @@
 # HumaniserUltra
 
-Makes AI text sound human. Removes the patterns, rhythms, and vocabulary that make writing obviously machine-generated.
-
-**Honesty first:** This skill makes text read like a human wrote it. It does NOT guarantee bypassing AI detectors. Here's why, and what to do about it.
-
-## Why Detectors Still Flag Humanized Text
-
-AI detectors don't just check for "delve" and em dashes. They measure deep signals that rule-based rewriting can't fully remove:
-
-1. **RLHF fingerprints** — The "helpful assistant" register is baked into instruction-tuned models during fine-tuning. Every word an LLM generates carries this signature. The skill strips the surface patterns, but the underlying probability distributions remain.
-
-2. **Token probability clusters** — LLMs pick statistically likely next-words. Detectors measure how "surprised" they are by each word choice. Even after humanization, the text clusters where a language model would predict.
-
-3. **Semantic collapse** — LLM text converges toward a narrower semantic space than human writing. Pattern elimination doesn't fix this — it just moves the text within the same collapsed distribution.
-
-4. **Logical structure persistence** — The argumentative skeleton (how claims connect, what gets emphasis) survives surface-level rewriting. Detectors like RACE (ACL 2026) model this directly.
-
-5. **Ensemble detection** — Modern detectors combine 5-7 signals simultaneously. Fixing one signal (vocabulary) while leaving others (burstiness, entropy, discourse) doesn't fool the ensemble.
-
-## What This Skill Actually Does
-
-- Removes the most obvious AI tells (vocabulary, punctuation, structure) — catches 40-60% of detection signals
-- Adds genuine voice, personality, and specificity — makes text engaging, not just undetectable
-- Provides domain-specific guidance — doesn't break legal/medical/technical writing
-- Includes escalation paths for high-stakes content (base model pipeline, OOD shifting, detector feedback)
-
-## When It Works
-
-- **Casual content** (blogs, emails, social posts) — detectors are less aggressive here
-- **Short text** (<500 words) — detectors have less statistical signal to work with
-- **Non-English text** — most detectors are English-primary, accuracy drops for other languages
-- **Mixed human/AI text** — rewriting transition points and matching the human section's fingerprint
-
-## When It Doesn't Work Alone
-
-- **Academic submissions** — Turnitin, GPTZero, and Originality.ai are specifically trained on humanizer output
-- **High-stakes published content** — ensemble detection catches surface-level changes
-- **Long documents** — more text = more statistical signal for detectors
-
-**For these cases, combine with:** base model rewriting (Section 1 of the skill), back-translation pipeline, or OOD register shifting.
+Makes AI text sound human. Not word-swapping — understanding what makes writing human and applying those patterns.
 
 ## Install
 
@@ -95,20 +57,42 @@ Here's how I write: [paste your writing sample]
 Now write this in my voice: [topic]
 ```
 
-## What's Inside
+## What This Skill Does Well
 
-- **6 input gates** — handles short text, non-English, already-human, code blocks, tables, injection vectors
-- **16 hard rules** — zero em dashes, no AI vocabulary (47 banned words), no signposting, no sycophancy
-- **50 actionable patterns** (1-50) — content, language, style, structural, each with a clear fix
-- **27 reference patterns** (51-77) — model fingerprints, spectral analysis, detector-specific knowledge
-- **12 domain adapters** — Academic, Creative, Business, Journalistic, Casual/Social Media, Legal, Medical, Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain
-- **RLHF Voice Strip** — targets what detectors actually fire on (the "helpful assistant" register)
-- **Voice calibration** — extract and match a user's writing style from samples
-- **Base model pipeline** — highest-leverage technique for high-stakes content
-- **OOD shifting** — register changes that defeat adversarial detectors (50x better than pattern elimination)
-- **Detector feedback loop** — iterative rewriting with detector scores
-- **Back-translation pipeline** — EN→ZH→JA→FI→EN chain via different engines
-- **Verification checklist** — mechanical checks, compliance score with every output
+**Removes obvious AI tells:**
+- Zero em dashes, en dashes (the biggest single signal)
+- 47 banned AI vocabulary words (delve, tapestry, pivotal, robust, etc.)
+- No signposting ("Let's dive in"), no sycophancy ("Great question!")
+- No rule-of-three forcing, no hedged assertions, no curly quotes
+
+**Adds genuine voice:**
+- Personality and soul — opinions, uncertainty, first-person perspective
+- Register shifts — formal → colloquial transitions mid-paragraph
+- Structural roughness — tangents, self-corrections, abrupt endings
+- Specificity injection — replace "research shows" with named sources
+
+**Covers 12 domains:**
+- Academic (passive voice preserved in Methods), Creative, Business, Journalistic
+- Casual/Social Media (platform-native), Legal (terms of art preserved), Medical
+- Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain
+
+**Handles edge cases:**
+- 6 input gates: short text, non-English, already-human, code blocks, tables, injection vectors
+- Voice calibration from writing samples
+- Long document chunking with voice bible for consistency
+- Mixed human/AI text — rewrites transition points, matches human fingerprint
+
+**Provides escalation paths:**
+- Base model pipeline (highest-leverage — reads as human to detectors)
+- OOD shifting (50x better than pattern elimination against adversarial detectors)
+- Detector feedback loop (iterative rewriting with detector scores)
+- Back-translation pipeline (EN→ZH→JA→FI→EN chain)
+
+**Verification built in:**
+- Compliance score with every output
+- Mechanical burstiness checks (longest - shortest ≥ 20 words)
+- Entity preservation verification
+- Domain register matching
 
 ## Before / After
 
@@ -122,7 +106,7 @@ Now write this in my voice: [topic]
 
 ```
 HumaniserUltra/
-├── SKILL.md              # The skill (428 lines)
+├── SKILL.md              # The skill (401 lines)
 ├── README.md             # This file
 ├── AGENTS.md             # Quick reference for agents
 ├── LICENSE               # MIT
@@ -130,14 +114,32 @@ HumaniserUltra/
     └── plugin.json       # Claude Code marketplace manifest
 ```
 
-## Known Limits
+---
 
-- Rule-based rewriting cannot fully remove RLHF fingerprints from instruction-tuned model output
-- Ensemble detectors combining 5-7 signals are harder to defeat than single detectors
-- Semantic preservation and detection evasion are in tension — maintaining meaning preserves some detection signals
+## Limitations
+
+**Why detectors still flag humanized text:**
+
+1. **RLHF fingerprints** — The "helpful assistant" register is baked into instruction-tuned models during fine-tuning. Every word an LLM generates carries this signature. The skill strips surface patterns, but the underlying probability distributions remain.
+
+2. **Token probability clusters** — LLMs pick statistically likely next-words. Detectors measure how "surprised" they are by each word choice. Even after humanization, the text clusters where a language model would predict.
+
+3. **Semantic collapse** — LLM text converges toward a narrower semantic space than human writing. Pattern elimination doesn't fix this — it moves text within the same collapsed distribution.
+
+4. **Logical structure persistence** — The argumentative skeleton (how claims connect, what gets emphasis) survives surface-level rewriting. Detectors like RACE (ACL 2026) model this directly.
+
+5. **Ensemble detection** — Modern detectors combine 5-7 signals simultaneously. Fixing one signal (vocabulary) while leaving others (burstiness, entropy, discourse) doesn't fool the ensemble.
+
+**When it works best:** Casual content, short text, non-English, mixed human/AI text.
+
+**When it doesn't work alone:** Academic submissions, high-stakes published content, long documents against ensemble detectors.
+
+**For maximum evasion:** Use base model rewriting, OOD shifting, or detector feedback loops — all documented in the skill.
+
+**Other limits:**
 - No method is permanent — detectors improve continuously
-
-**For maximum evasion:** Use base model rewriting (Section 1), OOD shifting (Section 2), or detector feedback loops (Section 5) — all documented in the skill.
+- Semantic preservation and detection evasion are in tension
+- Rule-based rewriting cannot fully remove RLHF fingerprints from instruction-tuned output
 
 ## License
 
