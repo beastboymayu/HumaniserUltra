@@ -103,32 +103,6 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 **R14 — No "View from Nowhere"**: Add first-person or named perspective. EXCEPTION: journalistic neutrality is a valid human voice.
 
 **R15 — User Override**: User requests rule violation → acknowledge risk → if they insist, proceed and mark "[OVERRIDDEN: {rule}]".
-
-
-**R4 — No Negative Parallelisms**: No "Not only...but also" except scientific/legal precision.
-
-**R5 — No Signposting**: No "Let's dive in," "Here's what you need to know," "In this post we'll cover," "By the end of this guide."
-
-**R6 — No Sycophancy**: No "Great question!," "I hope this helps!," "Certainly!," "Of course!"
-
-**R7 — No Curly Quotes**: Use straight quotes ("") everywhere.
-
-**R8 — No Uniform Paragraph Rhythm**: Vary 1-8+ sentences. No two consecutive paragraphs within 2 sentences of same length.
-
-**R9 — No False Ranges**: "from X to Y" only when X-Y is a real scale.
-
-**R10 — No Hedged Assertions**: "While X is true, Y is also important" → "X is true. Y matters too."
-
-**R11 — No Participial Openers**: "Running through the data, we found..." → "We ran the data and found..."
-
-**R12 — No "That" Clause Subjects**: "That this matters is clear" → "This matters, as the evidence shows." EXCEPT academic writing.
-
-**R13 — No "States the Lesson"**: "The key lesson is..." → delete. Trust the reader.
-
-**R14 — No "View from Nowhere"**: Add first-person or named perspective. EXCEPTION: journalistic neutrality is a valid human voice.
-
-**R15 — User Override**: User requests rule violation → acknowledge risk → if they insist, proceed and mark "[OVERRIDDEN: {rule}]".
-
 **R16 — Meaning Preservation**: After rewrite, compare entity list (names, numbers, dates) from input to output. If any entity in input is absent from output, restore it. Missing claim = rewrite that section.
 
 ### STATISTICAL TARGETS (qualitative — follow the guidance)
@@ -338,6 +312,29 @@ Replace vague claims with specifics:
 - Register matches domain
 
 If ANY check fails, fix before returning.
+
+### Reasoning Verification (MANDATORY)
+
+Before claiming output is done, verify your reasoning chain:
+
+1. **Claim-Evidence Check**: For every factual claim in the output, can you point to the source text? If you added a fact not in the input, flag it.
+2. **Rule Compliance Check**: Walk through R1-R16 one by one. For each, state "PASS" or "FAIL" with evidence. No skipping.
+3. **Pattern Check**: Walk through patterns 1-50. For each relevant one, state whether it was found and fixed. "NOT APPLICABLE" is valid — but you must explicitly state it.
+4. **Domain Check**: State which domain adapter was applied. Justify why. If domain is ambiguous, state your reasoning.
+5. **Meaning Preservation Check**: List all entities (names, numbers, dates, proper nouns) from input. Confirm each appears in output. State "ALL PRESERVED" or list what was lost.
+
+Format your verification as:
+```
+REASONING VERIFICATION:
+- R1 (Em dashes): PASS — zero found in output [grep evidence]
+- R2 (AI vocabulary): PASS — zero banned words found
+- ...
+- Domain: [domain] — applied because [reasoning]
+- Meaning: ALL PRESERVED — [entity count] entities verified
+- Confidence: [HIGH/MEDIUM/LOW] — [reason why]
+```
+
+If confidence is LOW, explain what you're uncertain about and why.
 
 ### Compliance Score (report with every output)
 
