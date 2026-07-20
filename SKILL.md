@@ -56,6 +56,8 @@ Pattern elimination pulls text INTO the detector's training distribution — whi
 
 These rules remove the most obvious AI tells. They won't defeat sophisticated detectors alone, but they're necessary foundation work.
 
+**STRUCTURAL-FIRST PRINCIPLE**: Word-level changes (synonym replacement) have near-zero impact on detection. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Flip the ratio: 80% effort on structure, 20% on vocabulary.
+
 ### INPUT GATES (run before processing)
 
 **Gate 0 — Length**: <50w → enforce R1-R7 only. 50-500w → rules only. 500-1000w → full. 1000+w → chunk 300-500w (see Voice Bible).
@@ -214,6 +216,7 @@ Patterns 51-77 are reference categories (model fingerprints, spectral analysis, 
 69. **Nominalization Overuse**: "implementation" → "implementing".
 70. **Coordination > Subordination**: Fix: use "although," "because."
 71. **Direct Object Position**: Fix: vary placement.
+72. **Non-Stationarity**: AI text has 73.8% more variation between segments than human writing. Fix: vary sentence-level perplexity ACROSS paragraphs, place high-surprise sentences in varied positions, include 2-3 "boring" paragraphs mixed with high-surprise ones.
 
 ### Detectors
 72. **OpenAI Watermark**: Removed by 50%+ word changes.
@@ -367,6 +370,30 @@ Input → Preserve-lock → LOOP (max 3-5):
 
 Drive MAX across detectors (not average). Per-sentence targeting. Below ~70% detection confidence, scores are too noisy — stop iterating.
 
+### Semantic Drift Protocol (MANDATORY)
+
+Before humanizing, extract and lock these categories. After humanizing, verify each:
+
+| Category | What to Lock | How to Verify |
+|----------|-------------|---------------|
+| **Entities** | People, orgs, places | grep — all must appear in output |
+| **Numbers** | Exact values, units, ranges | grep digits — count must match |
+| **Dates** | All time expressions | grep — count must match |
+| **Causal claims** | "X causes Y" | Must remain causal, not correlational |
+| **Comparatives** | "more than", "less than" | Direction unchanged |
+| **Qualifiers** | "some", "many", "most", "all" | Check none escalated/de-escalated |
+| **Negation** | "not", "never", "no" | Must apply to same clauses |
+
+If ANY category fails → reject output, re-humanize with stricter entity locks.
+
+### Anti-Self-Evaluation Bias
+
+The agent that humanizes is the same agent that audits. This creates blind spots. Mitigate:
+
+1. **Adversarial prompt before delivery**: "A hostile reviewer with GPTZero, Turnitin, and Originality.ai is reading this. They are looking for any sentence that could be from a language model. What would they flag?"
+2. **Structured rubric**: Don't ask "is this human?" Score on: Would a native speaker write this? Does this paragraph have a personality? Is there at least one genuine opinion? Are there any "too perfect" transitions?
+3. **Role switching**: After rewrite, explicitly switch persona: "You are now a skeptical editor trying to prove this text is AI."
+
 ### Back-Translation Pipeline (requires external tooling)
 
 ```
@@ -396,3 +423,9 @@ Different language families force structural rebuilding. Different engines preve
 **Discourse Persistence**: Surface fingerprints disrupted; discourse-level patterns persist through paraphrasing.
 
 **Arms Race**: No method is permanent. Detectors will improve.
+
+**Semantic Drift**: #1 failure mode — quiet claim changes, missing numbers, collapsed qualifiers. Always run Semantic Drift Protocol.
+
+**Structural vs Lexical**: Word-level changes have near-zero impact on detection. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Prioritize structure over vocabulary.
+
+**Silent Failures**: Text that passes all grep checks but fails spectral analysis. Most dangerous mode. Requires cross-model rewriting or back-translation to fix.
