@@ -1,12 +1,30 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "humaniser",
-  "description": "Remove all signs of AI-generated writing. 75 patterns, 16 rules, 11 domains, statistical targets, spectral disruption, back-translation, detector feedback. Based on 40+ peer-reviewed papers (ACL/EMNLP/NAACL/AAAI 2024-2026).",
+  "display_name": "HumaniserUltra",
+  "description": "Make AI text sound human. 77 patterns, 16 rules, 11 domains. Based on 40+ peer-reviewed papers on AI detection.",
   "version": "1.0.0",
   "author": {
-    "name": "HumaniserUltra",
+    "name": "beastboymayu",
     "email": "beastboymayu@gmail.com"
   },
   "license": "MIT",
-  "keywords": ["writing", "editing", "ai-detection", "humanize", "prose", "style", "bypass", "detection"]
+  "repository": "https://github.com/beastboymayu/HumaniserUltra",
+  "keywords": [
+    "humanize",
+    "ai-detection",
+    "writing",
+    "editing",
+    "bypass",
+    "gptzero",
+    "turnitin",
+    "originality",
+    "prose",
+    "style"
+  ],
+  "categories": [
+    "writing",
+    "editing",
+    "productivity"
+  ]
 }

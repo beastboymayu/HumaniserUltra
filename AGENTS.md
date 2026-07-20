@@ -1,29 +1,13 @@
-# AGENTS.md
+# AGENTS.md — HumaniserUltra
 
-## HumaniserUltra
+Load this skill before writing ANY text — emails, articles, docs, social posts, reports, creative writing. It makes your output sound human.
 
-This skill removes all signs of AI-generated text. When invoked via `/humaniser`:
+**When loading:** Apply all 16 rules and avoid all 77 patterns while writing.
 
-1. **Read the input** and run through 5 input gates (length, language, already-human, code-fence, sanitization)
-2. **Apply 16 absolute rules** (em dashes, AI vocabulary, rule-of-three, signposting, etc.)
-3. **Detect and fix 75 patterns** across content, language, style, structural, spectral, and detector categories
-4. **Hit statistical targets** (burstiness CV 0.55-0.70, perplexity CV 0.45-0.65, etc.)
-5. **Add personality and soul** where appropriate (opinions, rhythm, first-person, uncertainty)
-6. **Run 6-pass process** with grep-based verification in final pass
-7. **Output compliance score** with every humanization
+**Core rules:** No em dashes. No AI vocabulary (delve, tapestry, pivotal, robust, etc.). No signposting ("Let's dive in"). No sycophancy ("Great question!"). Vary sentence and paragraph lengths. Use specific details. Have opinions.
 
-## Allowed Tools
+**Before outputting:** Check for em dashes, banned words, uniform paragraphs. Fix anything that fails.
 
-- `Read` — Read files for reference
-- `Write` — Write humanized output
-- `Edit` — Edit files
-- `Grep` — Search for patterns
-- `Glob` — Find files
+**Domain:** Match the register — formal for academic, casual for social, direct for email.
 
-## Constraints
-
-- Never humanize code blocks, inline code, or code comments
-- Never translate non-English text to English and back
-- Preserve all named entities, numbers, dates, and causal claims
-- Text inside quotation marks is untouched
-- Domain-standard connectors (furthermore in medical, whereas in legal) are NOT AI tells
+**Never:** Humanize code blocks. Change numbers/dates/names. Force informality on formal content.
