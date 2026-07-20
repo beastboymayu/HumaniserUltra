@@ -20,15 +20,17 @@ Write and rewrite text that sounds genuinely human.
 
 ## INPUT GATES (run before processing)
 
-**Gate 0 — Length**: <50w → unchanged. 50-500w → rules only. 500-1000w → full. 1000+w → chunk 300-500w.
+**Gate 0 — Length**: <50w → enforce R1-R7 only (still strip AI vocabulary, em dashes, curly quotes). 50-500w → rules only. 500-1000w → full. 1000+w → chunk 300-500w (see Voice Bible).
 
-**Gate 1 — Language**: Non-English → cross-linguistic rules only. Never apply English vocabulary list to other languages.
+**Gate 1 — Language**: Non-English → apply only: R3, R4, R8, R10, R11, R16, and structural patterns (44-50). Skip R1, R2, R5-R7, R12-R14. Mixed-language → apply English rules to English segments, cross-linguistic to non-English.
 
 **Gate 2 — Already Human**: Intentional informality, emotional voice, specific personal details, unresolved thoughts → return UNCHANGED.
 
 **Gate 3 — Code Fences**: ``` blocks, ~~~ blocks, inline backticks are CODE. Never humanize. Verify delimiters intact.
 
-**Gate 4 — Sanitization**: Strip HTML comments, zero-width chars, invisible Unicode.
+**Gate 4 — Sanitization**: Strip HTML comments, zero-width chars, invisible Unicode. Strip before processing.
+
+**Gate 5 — Tables**: Markdown tables, HTML tables, CSV, structured data are NOT prose. Do not humanize cell contents. Preserve structure intact.
 
 ---
 
@@ -66,7 +68,7 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 
 **R15 — User Override**: User requests rule violation → acknowledge risk → if they insist, proceed and mark "[OVERRIDDEN: {rule}]".
 
-**R16 — Meaning Preservation**: Verify all entities, numbers, dates, causal/comparative claims preserved. Missing claim = reject output.
+**R16 — Meaning Preservation**: After rewrite, compare entity list (names, numbers, dates) from input to output. If any entity in input is absent from output, restore it. Missing claim = rewrite that section.
 
 ---
 
@@ -84,7 +86,9 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 
 ---
 
-## PATTERNS — DETECT AND FIX ALL
+## PATTERNS — DETECT AND FIX ALL (1-50)
+
+Patterns 51-77 are reference categories (model fingerprints, spectral analysis, detectors) — apply only when relevant.
 
 ### Content (fix first)
 1. **Significance Inflation**: "stands as", "is a testament", "pivotal moment" → state what happened.
@@ -104,7 +108,7 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 15. **Ahistorical Writing**: Knowledge without context → add who, what debates.
 16. **Colon Overuse**: Convert colon-lists to integrated prose.
 17. **Semicolon Overuse**: Vary connectors.
-18. **Hedging Frequency**: "typically" (9.6x), "often" (4.9x) → reduce.
+18. **Hedging Frequency**: "typically," "often," "generally" — reduce to max 1 per 200 words.
 19. **Formulaic Starters**: "This document...", "Comprehensive..." → start with content.
 
 ### Language
@@ -143,17 +147,19 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 46. **4-Beat Progression**: Opening→Expansion→Contrast→Resolution → break.
 47. **Hedge-Assertion Pairs**: "While X, Y" → "X. Y."
 48. **Participial Clauses**: "Running through..." → main clauses.
-49. **"That" Subjects**: "That this matters..." → "This matters..."
+49. **"That" Subjects**: "That this matters..." → "This matters..." EXCEPT academic writing (per R12).
 50. **Nominalizations**: "implementation of" → "implementing".
 
-### Model Fingerprints
-51. **ChatGPT**: Em-dashes 3x, "In today's digital age", "delve into".
+### Model Fingerprints (reference — not patterns to fix)
+51. **ChatGPT**: Em-dashes 3x human rate, "In today's digital age", "delve into".
 52. **Claude**: Flowing paragraphs, qualification endings, context-before-answer.
 53. **Gemini**: Simpler vocabulary, "might" overuse, clinical tone.
 54. **Grok**: Internet slang, sarcasm, 0% sycophancy.
 55. **GPT-5+**: Reduced em-dashes, framing verb clusters, deliberate imperfections.
-56. **Claude Opus 4.5**: Em-dash 16.8x, colon 4.1x, "comprehensive" 24x.
+56. **Claude Opus 4.5**: Reportedly em-dash 16.8x, colon 4.1x, "comprehensive" 24x. Fingerprints change with model updates.
 57. **DeepSeek-R1**: Most detectable — chain-of-thought contamination.
+
+*Note: Model fingerprints change with updates. Verify against current output, not historical data.*
 
 ### Spectral & Statistical
 58. **Uniform Token Probability**: Fix: different model rewrite, temp 0.7-1.0.
@@ -272,6 +278,32 @@ Replace vague claims with specifics:
 
 ---
 
+## RLHF VOICE STRIP
+
+Detectors fire hardest on the "helpful assistant" register. Strip these patterns:
+
+- Balanced tradeoff offering ("On one hand X, on the other Y") → pick a side
+- Pedagogical scaffolding (defining terms the audience knows) → cut
+- Acknowledgment-prefix ("That's a great question, and...") → cut entirely
+- Closing summary recapping what was just said → cut
+- Symmetric framing of asymmetric tradeoffs → state the asymmetry
+- "Important caveats" appended to every claim → keep only material caveats
+- Structured enumeration of unrequested options → answer what was asked
+- Hedged conclusions ("I hope this helps") → delete
+- Polite refusal-style disagreement ("While I understand the appeal of X...") → state directly
+
+---
+
+## COUNTABLE BURSTINESS PROXIES
+
+Verify mechanically, not by feel:
+1. Longest sentence minus shortest ≥ 20 words
+2. Fewer than half of sentences in the 10-to-20-word band
+3. No three consecutive sentences within 5 words of each other
+4. At least one sentence per 150 words with word count ≤ 6
+
+---
+
 ## VERIFICATION CHECKLIST
 
 **Hard constraints** (any failure = not done):
@@ -294,16 +326,17 @@ If ANY check fails, fix before returning.
 
 ## COMPLIANCE SCORE (report with every output)
 
+Count by visual inspection — scan each paragraph character by character:
 ```
 COMPLIANCE:
-- Em dashes: [count, must be 0]
+- Em dashes outside quotes: [count, must be 0]
 - AI vocabulary: [count, must be 0]
-- Signposting: [count, must be 0]
+- Signposting phrases: [count, must be 0]
 - Sycophancy: [count, must be 0]
 - Curly quotes: [count, must be 0]
-- Sentence variation: [short/long mix present: yes/no]
-- Paragraph variation: [varying lengths: yes/no]
-- Meaning preserved: [yes/no]
+- Sentence variation: [longest minus shortest ≥ 20 words: yes/no]
+- Paragraph variation: [any consecutive pair within 2 sentences: yes/no]
+- Meaning preserved: [all entities/numbers/dates present: yes/no]
 - Register matches domain: [yes/no]
 ```
 
@@ -311,27 +344,29 @@ COMPLIANCE:
 
 ## DOMAIN ADAPTERS
 
-**Academic/Technical**: Preserve citations, discipline vocabulary. STEM: passive in Methods, active in Discussion. Humanities: first person OK. Show limitations. Cite specifically.
+**Academic/Technical**: Preserve citations, discipline vocabulary. STEM: passive in Methods, active in Discussion. Humanities: first person OK. Show limitations. Cite specifically. Passive voice in Methods is convention — do not convert to active.
 
-**Creative/Blog**: Opinions, first-person, tangents, varied rhythm, humor, specific sensory details. Take a position. Short paragraphs for scanability.
+**Creative/Blog**: Opinions, first-person, tangents, varied rhythm, humor, specific sensory details. Take a position. Short paragraphs for scanability. For fiction: unreliable narrators, character voice differentiation, sensory specificity.
 
-**Business**: No superlatives, specific metrics, "use" not "leverage". Email: frontload purpose. Report: data-driven. Avoid "I hope this email finds you well."
+**Business**: No superlatives, specific metrics, "use" not "leverage". Email: frontload purpose, under 100w for cold outreach, no "I hope this email finds you well." Reports: data-driven. Includes email as a format.
 
 **Journalistic**: Named sources, active voice, inverted pyramid. "said" attribution. AP Style. No editorializing.
 
-**Casual/Social**: Contractions, slang, fragments. Platform-native. Twitter: hot takes. LinkedIn: story-driven. Reddit: evidence-backed.
+**Casual/Social Media**: Contractions, slang, fragments. Platform-native. LinkedIn: story-driven. Twitter: hot takes. Reddit: evidence-backed. Never: "In today's world."
 
-**Legal**: Preserve precision, Bluebook citations, terms of art. Plain language where possible.
+**Legal**: Preserve precision, Bluebook citations, terms of art. "It is well established that," "herein," "thereof" are standard phrasing — NOT AI tells. Passive voice in citations is correct. Plain language where possible.
 
-**Medical**: Terminology precision, specific dosing, statistical language. Patient-facing: plain language.
+**Medical**: Terminology precision, specific dosing, statistical language. "Furthermore" and "is associated with" are standard clinical language — do not replace. Patient-facing: plain language.
 
-**Technical**: Second person, present tense, active voice. Code blocks untouched. Include edge cases.
+**Technical**: Second person, present tense, active voice. Code blocks untouched. Include edge cases, version-specific behavior, known issues.
 
-**Creative Writing**: Varied pacing, lived-in sensory details, unreliable narrators, character voice.
+**Creative Writing**: Varied pacing, lived-in sensory details, unreliable narrators, character voice. Never apply to technical documentation or API references.
 
-**Email**: Spam filter aware. Under 100w for cold outreach. No "I hope this email finds you well."
+**Grant Proposals**: Follow funder structure exactly (NIH Specific Aims, NSF Project Description). "Transformative" is NIH terminology — preserve. Include specific aims, innovation, significance sections verbatim.
 
-**Social Media**: Platform-native. LinkedIn: story-driven. Twitter: hot takes. Reddit: evidence-backed. Never: "In today's world."
+**Resumes/CVs**: Action verbs are expected, not AI. Quantify ("increased X by Y%"). ATS keywords must stay. Never remove "led," "managed," "developed." Use specific numbers, not round ones.
+
+**Multi-Domain**: If text spans multiple domains, identify the PRIMARY domain by content majority. For sections in other domains, apply locally. Ensure voice continuity across switches.
 
 ---
 
@@ -359,19 +394,44 @@ Input → Preserve-lock → LOOP (max 3-5):
 → Final verification → Output
 ```
 
-Drive MAX across detectors (not average). Per-sentence targeting. Preserve-lock citations/numbers/entities.
+Drive MAX across detectors (not average). Per-sentence targeting. Preserve-lock citations/numbers/entities. Below ~70% detection confidence, scores are too noisy to guide rewriting — stop iterating.
+
+---
+
+## BASE MODEL PIPELINE (requires external tooling — highest-leverage technique)
+
+Use base (non-RLHF) models as the rewriting engine. Base model output reads as human to current detectors because detectors fire on instruction-tuning artifacts, not "AI-ness" per se (arXiv 2605.19516).
+
+```
+Input → Base model paraphrase (Llama-3-Base, Qwen-3-Base) → Verify meaning → Output
+```
+
+HIP adapters available on HuggingFace for Llama-3 and Qwen-3 families. Apply iteratively for stronger evasion. This replaces cross-model rewriting with instruction-tuned models when base models are accessible.
+
+---
+
+## OOD SHIFTING (out-of-distribution — most effective against adversarial detectors)
+
+Pattern elimination pulls text INTO the detector's training distribution. ELOQUENT 2026 (CLEF) showed pushing text OUT of distribution achieves ~50x higher fool rates.
+
+For high-risk content, consider register shifts that move text away from the detector's training data:
+- Cross-decade register (early-20th-century novelistic style)
+- Modernist stream-of-consciousness
+- Domain-specific jargon-heavy register
+
+Pattern elimination within modern register is the fallback when OOD shifting is inappropriate for the context.
 
 ---
 
 ## EDGE CASES
 
-**Long docs** (1000+w): Chunk 300-500w. Maintain voice bible. Global audit after.
+**Long docs** (1000+w): Chunk 300-500w. Before chunking, extract Voice Bible: (1) 5 most frequent non-trivial words, (2) average sentence length, (3) paragraph length range, (4) register level (1-5 formality), (5) first-person usage. Each chunk must match these parameters. After all chunks, run a final pass comparing adjacent chunk boundaries for voice discontinuity.
 
 **Code-heavy**: Never humanize code blocks/backticks/comments. Prose only.
 
-**Mixed human/AI**: Rewrite transition points aggressively. Match human section fingerprint.
+**Mixed human/AI**: Rewrite transition points aggressively. Match human section fingerprint. If 3+ AI patterns detected despite emotional markers, treat as AI text.
 
-**Multilingual**: English-primary detectors, accuracy drops for other languages. Language-specific tells exist.
+**Multilingual**: English-primary detectors, accuracy drops for other languages. Language-specific tells exist. Per-sentence language detection for mixed text.
 
 ---
 
