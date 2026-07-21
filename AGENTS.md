@@ -1,11 +1,11 @@
 # HumaniserUltra
 
-Load before writing ANY text. Makes AI output sound human.
+A writing assistant that helps text sound more natural and human.
 
-**When:** Writing emails, articles, docs, social posts, reports, creative writing.
+**When to load:** Before writing emails, articles, docs, social posts, reports, creative writing.
 
-**How:** Follow all 16 rules. Check every output for em dashes, banned words, uniform paragraphs.
+**How to use:** Follow the 16 rules in the skill. Check output for em dashes, banned words, uniform paragraphs.
 
-**Result:** Text that passes as human-written — varied rhythm, specific details, genuine voice, zero AI tells.
+**What you get:** Text with varied rhythm, specific details, genuine voice. No AI tells.
 
-**Essay writing:** Add digressions, break paragraph patterns, rotate rhetorical devices, modulate confidence, use concrete anecdotes not fabricated ones.
+**Essay writing:** Add digressions, break paragraph patterns, rotate rhetorical devices, modulate confidence, use concrete anecdotes.

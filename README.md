@@ -1,6 +1,8 @@
 # HumaniserUltra
 
-Professional editing tool that transforms stiff, formulaic text into natural, engaging writing.
+A friendly writing assistant that helps your text sound more like you wrote it.
+
+Ever read something and thought "this feels like a robot wrote it"? That's what this skill fixes. It catches the patterns that make writing feel stiff and formulaic, then helps you add the voice, personality, and specificity that make it sound human.
 
 ## Install
 
@@ -40,7 +42,7 @@ mkdir -p ~/.config/opencode/skills/humaniser && cp SKILL.md ~/.config/opencode/s
 
 ```
 /humaniser
-[paste AI text to humanize]
+[paste your text]
 ```
 
 Write from scratch:
@@ -60,17 +62,15 @@ Now write this in my voice: [topic]
 
 ## What It Does
 
-Strips the obvious stuff first. Zero em dashes. 47 banned words (delve, tapestry, pivotal, robust). No "Let's dive in." No "Great question!" No rule-of-three forcing.
+It catches the patterns that make writing feel stiff. No em dashes everywhere. No "delve" or "tapestry" or "robust." No "Let's dive in" or "Great question!" No rule-of-three forcing. No hedged assertions.
 
-Then it adds what AI text is missing. Personality. Opinions. Specific details instead of "research shows." Register shifts mid-paragraph. Tangents and self-corrections. The messy parts that make writing feel like a person wrote it.
+Then it adds what stiff writing is missing. Personality. Opinions. Specific details instead of "research shows." Register shifts mid-paragraph. Tangents and self-corrections. The messy parts that make writing feel like a person wrote it.
 
 Covers 12 domains: Academic, Creative, Business, Journalistic, Casual/Social, Legal, Medical, Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain. Each has its own rules. Legal preserves terms of art. Academic keeps passive voice in Methods. Medical keeps "Furthermore" because that's how clinicians actually write.
 
 Handles the tricky stuff too. Six input gates catch short text, non-English, already-human writing, code blocks, tables, and injection vectors. Voice calibration matches your writing style from a sample. Long documents get chunked with a voice bible so paragraph 40 sounds like paragraph 1.
 
-For high-stakes content, it escalates. Base model rewriting (detectors fire on RLHF artifacts, not AI-ness). OOD shifting (push text out of the detector's training distribution, 50x better than pattern elimination). Detector feedback loops. Back-translation through Chinese, Japanese, and Finnish.
-
-Every output gets a compliance score. Em dashes, banned words, signposting, burstiness, entity preservation, domain matching. If anything fails, it fixes before returning.
+Every output gets checked: em dashes, banned words, signposting, burstiness, entity preservation, domain matching. If anything fails, it fixes before returning.
 
 ## Before / After
 
@@ -92,27 +92,13 @@ HumaniserUltra/
     └── plugin.json       # Claude Code marketplace manifest
 ```
 
----
+## What It's Good At
 
-## Limitations
+Casual content, short text, mixed human/AI text, emails, blog posts, social media, creative writing. Anywhere you want writing that sounds like a person wrote it.
 
-Every language model leaves statistical traces in its output. Rules remove surface patterns, but underlying probability distributions remain.
+## What It Can't Do Alone
 
-LLMs pick statistically likely next-words. Even after editing, the text may cluster where a language model would predict.
-
-LLM text converges toward a narrower semantic space than human writing. Surface editing doesn't fully fix this.
-
-The argumentative skeleton survives surface-level editing. How claims connect, what gets emphasis.
-
-Modern analysis tools combine multiple signals simultaneously. Fixing one signal while leaving others doesn't fool the ensemble.
-
-**Works best on:** Casual content, short text, mixed human/machine text.
-
-**Doesn't work alone on:** Academic submissions, high-stakes published content, long documents.
-
-**For maximum quality:** Cross-model rewriting, register shifting, or iterative quality feedback. All documented in the skill.
-
-Other limits: no method is permanent, semantic preservation and style variety are in tension, and surface editing cannot fully remove model-specific patterns.
+Academic submissions, high-stakes published content, long documents against multiple analysis tools. For those, it has advanced techniques documented in the skill (cross-model rewriting, register shifting, quality feedback loops).
 
 ## License
 
