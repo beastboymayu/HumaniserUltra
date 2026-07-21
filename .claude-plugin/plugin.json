@@ -2,25 +2,21 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "humaniser",
   "display_name": "HumaniserUltra",
-  "description": "Make AI text sound human. 77 patterns, 16 rules, 11 domains. Based on 40+ peer-reviewed papers on AI detection.",
+  "description": "A skill that helps AI agents write text that sounds human. 16 rules, 77 patterns, 12 domains. Based on writing research from ACL/EMNLP/NAACL/AAAI 2024-2026.",
   "version": "1.0.0",
   "author": {
-    "name": "beastboymayu",
-    "email": "beastboymayu@gmail.com"
+    "name": "beastboymayu"
   },
   "license": "MIT",
   "repository": "https://github.com/beastboymayu/HumaniserUltra",
   "keywords": [
-    "humanize",
-    "ai-detection",
     "writing",
     "editing",
-    "bypass",
-    "gptzero",
-    "turnitin",
-    "originality",
+    "humanize",
     "prose",
-    "style"
+    "style",
+    "voice",
+    "natural"
   ],
   "categories": [
     "writing",

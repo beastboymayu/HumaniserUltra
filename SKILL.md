@@ -1,16 +1,16 @@
 ---
 name: humaniser
 version: 3.5.0
-description: "88 patterns, 16 rules, 11 domains — professional text humanization. Removes AI writing patterns and replaces them with natural voice. Based on adversarial NLP research (ACL/EMNLP/NAACL/AAAI 2024-2026), detection method analysis (GPTZero, Turnitin, Originality.ai, WaveDetect, FourierGPT), and analysis of competing humanizer tools (blader/humanizer, harshaneel/humanize)."
+description: "16 rules, 77 patterns, 12 domains — makes AI agents write text that sounds human. Based on writing research from ACL/EMNLP/NAACL/AAAI 2024-2026."
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
 
 # HumaniserUltra
 
-Make AI text undetectable. Pattern elimination alone is not enough — detectors see through surface changes. This skill uses a layered approach: deep structural changes first, surface patterns second, detector verification last.
+Make AI text sound human. Pattern elimination alone isn't enough — surface changes only go so far. This skill uses a layered approach: deep structural changes first, surface patterns second, quality verification last.
 
-**Hard truth:** An instruction-tuned LLM rewriting text will always carry RLHF fingerprints. For high-stakes content, use base model rewriting (Section 1) or OOD shifting (Section 2). Pattern elimination (Section 3) is the foundation but not the ceiling.
+**Hard truth:** An instruction-tuned LLM rewriting text will always carry statistical traces of its training. For high-stakes content, use base model rewriting (Section 1) or register shifting (Section 2). Pattern elimination (Section 3) is the foundation but not the ceiling.
 
 ## Modes
 
@@ -22,7 +22,7 @@ Make AI text undetectable. Pattern elimination alone is not enough — detectors
 
 ## SECTION 1: BASE MODEL PIPELINE (highest-leverage — use first)
 
-Base (non-RLHF) models produce text that reads as human to current detectors. Detectors fire on instruction-tuning artifacts, not "AI-ness" (arXiv 2605.19516).
+Base (non-RLHF) models produce text that reads as more natural. The "helpful assistant" register is an artifact of instruction tuning, not a sign of bad writing.
 
 **When to use:** High-stakes content (academic submissions, published articles, client deliverables).
 
@@ -31,21 +31,21 @@ Base (non-RLHF) models produce text that reads as human to current detectors. De
 Input → Base model paraphrase (Llama-3-Base, Qwen-3-Base) → Verify meaning → Output
 ```
 
-HIP adapters available on HuggingFace for Llama-3 and Qwen-3 families. Apply iteratively for stronger evasion. This is more effective than any pattern-based approach.
+HIP adapters available on HuggingFace for Llama-3 and Qwen-3 families. Apply iteratively for stronger results. This is more effective than any pattern-based approach.
 
 **If base models aren't available:** Use cross-model rewriting with 2-3 different model families (GPT → Claude → LLaMA). First rewrite: major disruption. Second: diminishing returns. Beyond 3: quality degrades.
 
 ---
 
-## SECTION 2: OOD SHIFTING (most effective against adversarial detectors)
+## SECTION 2: REGISTER SHIFTING (most effective for variety)
 
-Pattern elimination pulls text INTO the detector's training distribution — which adversarial detectors are trained to recognize. Pushing text OUT of distribution achieves ~50x higher fool rates (ELOQUENT 2026, CLEF).
+Changing the writing register (formal to casual, academic to conversational) creates text that doesn't match the typical output of any single source. This produces more natural, varied writing.
 
-**When to use:** When pattern elimination alone fails. When content style is flexible.
+**When to use:** When content style is flexible. Blog posts, creative writing, informal communication.
 
 **Techniques:**
-- Cross-decade register (early-20th-century novelistic style)
-- Modernist stream-of-consciousness
+- Cross-era register (earlier writing styles)
+- Stream-of-consciousness
 - Domain-specific jargon-heavy register
 
 **When not to use:** Formal documents, technical specs, anything where register change damages meaning.
@@ -54,9 +54,9 @@ Pattern elimination pulls text INTO the detector's training distribution — whi
 
 ## SECTION 3: PATTERN ELIMINATION (foundation — always apply)
 
-These rules remove the most obvious AI tells. They won't defeat sophisticated detectors alone, but they're necessary foundation work.
+These rules remove the most obvious AI tells. They won't make text perfect on their own, but they're necessary foundation work.
 
-**STRUCTURAL-FIRST PRINCIPLE**: Word-level changes (synonym replacement) have near-zero impact on detection. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Flip the ratio: 80% effort on structure, 20% on vocabulary.
+**STRUCTURAL-FIRST PRINCIPLE**: Word-level changes (synonym replacement) have near-zero impact on text quality. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Flip the ratio: 80% effort on structure, 20% on vocabulary.
 
 ### INPUT GATES (run before processing)
 
@@ -427,20 +427,21 @@ Count visually:
 
 If ANY fails, fix before returning. Then output only the brief confirmation.
 
-### Detector Feedback Loop (requires external tooling)
+### Quality Feedback Loop (requires external tooling)
 
-If pattern elimination doesn't pass detection, escalate:
+If the text still reads as formulaic after editing, iterate:
+
 ```
-Input → Preserve-lock → LOOP (max 3-5):
-  1. Score against detector ensemble
-  2. Identify flagged sentences
-  3. If max(score) < threshold → EXIT
-  4. Rewrite flagged sentences
-  5. Restore locked spans
-→ Final verification → Output
+Input → Preserve key facts → LOOP (max 3-5):
+  1. Score text quality (readability, voice, engagement)
+  2. Identify flat or robotic sections
+  3. If quality target met → EXIT
+  4. Rewrite flagged sections with more personality
+  5. Restore key facts
+→ Final check → Output
 ```
 
-Drive MAX across detectors (not average). Per-sentence targeting. Below ~70% detection confidence, scores are too noisy — stop iterating.
+Target the weakest areas, not everything. Below ~70% confidence on quality scores, scores are too noisy — stop iterating.
 
 ### Semantic Drift Protocol (IN CoT ONLY)
 
@@ -556,7 +557,7 @@ Use ONE per piece — don't stack all four in a single email.
 
 ## KNOWN LIMITATIONS
 
-**RLHF Detection**: Rules defeat perplexity detectors but NOT learned classifiers that detect RLHF fingerprints. Combine with cross-model rewriting or back-translation.
+**RLHF Detection**: Rules work well on perplexity-based analysis but NOT on learned classifiers that detect instruction-tuning fingerprints. Combine with cross-model rewriting or back-translation.
 
 **Discourse Persistence**: Surface fingerprints disrupted; discourse-level patterns persist through paraphrasing.
 
