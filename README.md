@@ -59,7 +59,7 @@ Text with:
 
 ## What It Covers
 
-77 patterns across content, language, style, structure, and spectral analysis. 16 hard rules. 12 domain adapters (Academic, Creative, Business, Journalistic, Casual/Social, Legal, Medical, Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain). Format playbooks for blogs, email, video scripts, and podcasts. A pre-publish checklist.
+80 patterns across content, language, style, structure, and essay-specific tells. 16 hard rules. 12 domain adapters (Academic, Creative/Blog, Business, Journalistic, Casual/Social, Legal, Medical, Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain). Format playbooks for blogs, email, video scripts, and podcasts. A pre-publish checklist.
 
 ## What It Can't Do Alone
 
