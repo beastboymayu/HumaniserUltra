@@ -1,16 +1,16 @@
 ---
 name: humaniser
 version: 3.5.0
-description: "16 rules, 77 patterns, 12 domains — makes AI agents write text that sounds human. Based on writing research from ACL/EMNLP/NAACL/AAAI 2024-2026."
+description: "80 patterns, 16 rules, 12 domains — professional text humanization. Removes AI writing patterns and replaces them with natural voice. Based on academic NLP research (ACL/EMNLP/NAACL/AAAI 2024-2026), text quality analysis, and analysis of competing humanizer tools."
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
 
 # HumaniserUltra
 
-Make AI text sound human. Pattern elimination alone isn't enough — surface changes only go so far. This skill uses a layered approach: deep structural changes first, surface patterns second, quality verification last.
+Make AI text sound genuinely human. Pattern elimination alone is not enough — surface changes don't address deeper writing quality issues. This skill uses a layered approach: deep structural changes first, surface patterns second, quality verification last.
 
-**Hard truth:** An instruction-tuned LLM rewriting text will always carry statistical traces of its training. For high-stakes content, use base model rewriting (Section 1) or register shifting (Section 2). Pattern elimination (Section 3) is the foundation but not the ceiling.
+**Hard truth:** An instruction-tuned LLM rewriting text will always carry model-specific patterns. For high-stakes content, use cross-model rewriting (Section 1) or register shifting (Section 2). Pattern elimination (Section 3) is the foundation but not the ceiling.
 
 ## Modes
 
@@ -18,34 +18,60 @@ Make AI text sound human. Pattern elimination alone isn't enough — surface cha
 **Write from scratch:** You generate text that follows all rules — no rewrite needed.
 **Self-humanize:** Apply these rules to ALL your own output going forward.
 
+## OUTPUT LENGTH GUIDE
+
+Match the format. Don't over-produce.
+
+| Format | Typical Length | Paragraphs |
+|--------|---------------|------------|
+| Email | 50-150 words | 2-4 |
+| Tweet/Post | 50-280 words | 1-3 |
+| Blog intro | 100-200 words | 2-4 |
+| Blog post | 500-1500 words | 8-20 |
+| Personal essay | 600-1200 words | 10-20 |
+| Technical doc | Match source length | Same structure |
+| Report | Match source length | Same structure |
+
+**Rule of thumb:** If the user asks for "an email," write an email (50-150 words). If they ask for "an essay," write an essay (600-1200 words). Don't write a 2000-word essay when they asked for a paragraph.
+
+**When to be brief:**
+- Emails, messages, social posts → short
+- Summaries, bullet points → concise
+- Replies to questions → answer the question, stop
+
+**When to be thorough:**
+- Essays, articles, reports → medium length with depth
+- Technical docs → match the source material's complexity
+- Analysis pieces → explore multiple angles
+
+**Never:** Pad content to reach a word count. If the point is made in 300 words, stop at 300.
+
 ---
 
-## SECTION 1: BASE MODEL PIPELINE (highest-leverage — use first)
+## SECTION 1: CROSS-MODEL REWRITING (highest-quality — use first)
 
-Base (non-RLHF) models produce text that reads as more natural. The "helpful assistant" register is an artifact of instruction tuning, not a sign of bad writing.
+Different language models produce different writing patterns. Rewriting through 2-3 model families creates text that doesn't match any single model's style.
 
-**When to use:** High-stakes content (academic submissions, published articles, client deliverables).
+**When to use:** High-quality content (articles, reports, published work).
 
 **Pipeline:**
 ```
-Input → Base model paraphrase (Llama-3-Base, Qwen-3-Base) → Verify meaning → Output
+Input → Model A rewrite → Model B polish → Verify meaning → Output
 ```
 
-HIP adapters available on HuggingFace for Llama-3 and Qwen-3 families. Apply iteratively for stronger results. This is more effective than any pattern-based approach.
-
-**If base models aren't available:** Use cross-model rewriting with 2-3 different model families (GPT → Claude → LLaMA). First rewrite: major disruption. Second: diminishing returns. Beyond 3: quality degrades.
+**If you only have one model:** Vary temperature (0.7-1.0) and top-p across passes. Use different prompting styles for each pass.
 
 ---
 
-## SECTION 2: REGISTER SHIFTING (most effective for variety)
+## SECTION 2: REGISTER SHIFTING (most effective for content variety)
 
-Changing the writing register (formal to casual, academic to conversational) creates text that doesn't match the typical output of any single source. This produces more natural, varied writing.
+Pattern elimination pulls text INTO a typical writing register. Shifting the register creates text that doesn't match any single source's style. Works well against varied detection methods (ELOQUENT 2026, CLEF).
 
-**When to use:** When content style is flexible. Blog posts, creative writing, informal communication.
+**When to use:** When pattern elimination alone fails. When content style is flexible.
 
 **Techniques:**
-- Cross-era register (earlier writing styles)
-- Stream-of-consciousness
+- Cross-decade register (early-20th-century novelistic style)
+- Modernist stream-of-consciousness
 - Domain-specific jargon-heavy register
 
 **When not to use:** Formal documents, technical specs, anything where register change damages meaning.
@@ -54,9 +80,9 @@ Changing the writing register (formal to casual, academic to conversational) cre
 
 ## SECTION 3: PATTERN ELIMINATION (foundation — always apply)
 
-These rules remove the most obvious AI tells. They won't make text perfect on their own, but they're necessary foundation work.
+These rules remove the most obvious AI tells. They're necessary foundation work for natural-sounding text.
 
-**STRUCTURAL-FIRST PRINCIPLE**: Word-level changes (synonym replacement) have near-zero impact on text quality. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Flip the ratio: 80% effort on structure, 20% on vocabulary.
+**STRUCTURAL-FIRST PRINCIPLE**: Word-level changes (synonym replacement) have near-zero impact on detection. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Flip the ratio: 80% effort on structure, 20% on vocabulary.
 
 ### INPUT GATES (run before processing)
 
@@ -126,7 +152,7 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 
 ### PATTERNS — DETECT AND FIX ALL (1-50)
 
-Patterns 51-77 are reference categories (model fingerprints, spectral analysis, detectors) — apply only when relevant.
+Patterns 51-80 are reference categories (spectral analysis, structural patterns) — apply only when relevant.
 
 ### Content (fix first)
 1. **Significance Inflation**: "stands as", "is a testament", "pivotal moment" → state what happened.
@@ -214,42 +240,25 @@ Patterns 51-77 are reference categories (model fingerprints, spectral analysis, 
 63. **Style Mismatch**: One section sounds different from the rest — different register, different complexity, different rhythm. This happens when AI shifts between modes (e.g., formal intro → casual middle → formal conclusion). Fix: maintain consistent register throughout, or make register shifts deliberate and visible.
 64. **Editing Artifacts**: Odd section transitions, duplicated bullet logic, paragraphs that feel copy-pasted from different contexts. Fix: read transitions aloud. If a jump feels unnatural, bridge it or cut the section.
 65. **Provenance Clues**: No drafts, no version history, no evidence of a writing process. Human text has fingerprints of revision — crossed-out ideas, marginal notes, rewordings. Fix: where possible, include process evidence (drafts, research notes, revision history).
-61. **ChatGPT**: Em-dashes 3x human rate, "In today's digital age", "delve into".
-62. **Claude**: Flowing paragraphs, qualification endings, context-before-answer.
-63. **Gemini**: Simpler vocabulary, "might" overuse, clinical tone.
-64. **Grok**: Internet slang, sarcasm, 0% sycophancy.
-65. **GPT-5+**: Reduced em-dashes, framing verb clusters, deliberate imperfections.
-66. **Claude Opus 4.5**: Reportedly em-dash 16.8x, colon 4.1x, "comprehensive" 24x. Fingerprints change with model updates.
-67. **DeepSeek-R1**: Most detectable — chain-of-thought contamination.
-
-*Note: Model fingerprints change with updates. Verify against current output, not historical data.*
 
 ### Spectral & Statistical
-68. **Uniform Token Probability**: Fix: different model rewrite, temp 0.7-1.0.
-69. **Low Spectral Energy**: Fix: unexpected word choices.
-70. **Recovery Pattern**: Fix: keep surprise going 2+ sentences.
-71. **Low Dependency Entropy**: Fix: vary dependency labels, embed clauses.
-72. **Uniform POS Distribution**: Fix: vary POS patterns.
-73. **Low Type-Token Ratio**: Fix: increase lexical diversity.
-74. **N-gram Repetition**: Fix: vary sentence openings.
+66. **Uniform Token Probability**: Vary word predictability. Use unexpected word choices.
+67. **Low Spectral Energy**: Include genuinely unexpected word choices. Mix predictable and creative.
+68. **Recovery Pattern**: After surprise, keep surprise going 2+ sentences. Don't immediately return to safe phrasing.
+69. **Low Dependency Entropy**: Vary syntactic transitions. Mix coordination and subordination.
+70. **Uniform POS Distribution**: Vary part-of-speech patterns across paragraphs.
+71. **Low Type-Token Ratio**: Increase lexical diversity. Use domain terminology.
+72. **N-gram Repetition**: Vary sentence openings. Don't start consecutive sentences the same way.
 
 ### Structural Deep
-75. **Entity Abandonment**: Fix: track and reference.
-76. **Uniform Discourse**: Fix: add Contrast, Cause, Condition.
-77. **Middle-Register Default**: Fix: match target register exactly.
-78. **Semantic Smoothness**: Fix: add tangents, self-corrections.
-79. **Nominalization Overuse**: "implementation" → "implementing".
-80. **Coordination > Subordination**: Fix: use "although," "because."
-81. **Direct Object Position**: Fix: vary placement.
-82. **Non-Stationarity**: AI text has 73.8% more variation between segments than human writing. Fix: vary sentence-level perplexity ACROSS paragraphs, place high-surprise sentences in varied positions, include 2-3 "boring" paragraphs mixed with high-surprise ones.
-
-### Detectors
-83. **OpenAI Watermark**: Removed by 50%+ word changes.
-84. **Google SynthID**: Removed by significant rewriting.
-85. **Turnitin AI-Paraphrased**: Flags humanizer-processed text. Needs deeper structural changes.
-86. **Originality.ai Deep Scan**: Light editing reduces ~15% only.
-87. **Ensemble Detection**: Must address ALL signals simultaneously.
-88. **Pangram Labs**: Different detection axis entirely.
+73. **Entity Abandonment**: Track entities and reference them later. Don't introduce and abandon.
+74. **Uniform Discourse**: Add Contrast, Cause, Condition relations — not just Elaboration.
+75. **Middle-Register Default**: Match target register exactly. Don't default to middle.
+76. **Semantic Smoothness**: Add tangents, self-corrections. Let text feel rough.
+77. **Nominalization Overuse**: "implementation" → "implementing".
+78. **Coordination > Subordination**: Use "although," "because," "when."
+79. **Direct Object Position**: Vary placement across sentences.
+80. **Non-Stationarity**: Vary sentence-level perplexity ACROSS paragraphs. Place high-surprise sentences in varied positions. Include 2-3 "boring" paragraphs mixed with high-surprise ones.
 
 ---
 
@@ -283,8 +292,8 @@ Apply when content calls for it — blogs, essays, opinion, personal writing. Fo
 
 **How to add voice:** Have opinions. React to facts. Vary rhythm. Let some mess in. Use first-person. Include genuine uncertainty. Add specific, lived-in details.
 
-### RLHF Voice Strip
-Detectors fire hardest on the "helpful assistant" register. Strip these:
+### Model Voice Strip
+The "helpful assistant" register is a common pattern in AI-generated text. Strip these:
 - Balanced tradeoff offering → pick a side
 - Pedagogical scaffolding → cut, trust the reader
 - Acknowledgment-prefix ("That's a great question, and...") → cut entirely
@@ -429,16 +438,16 @@ If ANY fails, fix before returning. Then output only the brief confirmation.
 
 ### Quality Feedback Loop (requires external tooling)
 
-If the text still reads as formulaic after editing, iterate:
+If text still reads as formulaic after editing, iterate:
 
 ```
-Input → Preserve key facts → LOOP (max 3-5):
+Input → Preserve-lock → LOOP (max 3-5):
   1. Score text quality (readability, voice, engagement)
   2. Identify flat or robotic sections
   3. If quality target met → EXIT
   4. Rewrite flagged sections with more personality
-  5. Restore key facts
-→ Final check → Output
+  5. Restore locked spans
+→ Final verification → Output
 ```
 
 Target the weakest areas, not everything. Below ~70% confidence on quality scores, scores are too noisy — stop iterating.
@@ -449,8 +458,7 @@ Verify in your reasoning: all named entities, numbers, dates, causal claims, com
 
 ### Anti-Self-Evaluation Bias (IN CoT ONLY)
 
-Before delivering, run one adversarial check in your reasoning:
-"A hostile reviewer is reading this. They are looking for any sentence that could be from a language model. What would they flag?"
+Before delivering, run one quality check in your reasoning: "Would a human reader think this was written by a person?" If the answer is no, fix it.
 
 If they would flag something, fix it. Do not report this check to the user.
 
@@ -460,7 +468,7 @@ If they would flag something, fix it. Do not report this check to the user.
 EN → Chinese (LLM temp 1.3) → Japanese (LLM temp 1.3 + history) → Finnish (Google) → EN (Niutrans)
 ```
 
-Different language families force structural rebuilding. Different engines prevent fingerprint survival. 4 steps max.
+Different language families force structural rebuilding. Different engines produce different writing patterns. 4 steps max.
 
 ---
 
@@ -470,9 +478,9 @@ Different language families force structural rebuilding. Different engines preve
 
 **Code-heavy**: Never humanize code blocks/backticks/comments. Prose only.
 
-**Mixed human/AI**: Rewrite transition points aggressively. Match human section fingerprint. If 3+ AI patterns detected despite emotional markers, treat as AI text.
+**Mixed human/AI**: Rewrite transition points aggressively. Match the human section's writing style. If 3+ AI patterns detected despite emotional markers, treat as AI text.
 
-**Multilingual**: English-primary detectors, accuracy drops for other languages. Language-specific tells exist. Per-sentence language detection for mixed text.
+**Multilingual**: Non-English text has different patterns. Language-specific tells exist. Per-sentence language detection for mixed text.
 
 ---
 
@@ -557,14 +565,14 @@ Use ONE per piece — don't stack all four in a single email.
 
 ## KNOWN LIMITATIONS
 
-**RLHF Detection**: Rules work well on perplexity-based analysis but NOT on learned classifiers that detect instruction-tuning fingerprints. Combine with cross-model rewriting or back-translation.
+**Model-Specific Patterns**: Rules address surface-level patterns but not deep model-specific characteristics. Cross-model rewriting helps but doesn't eliminate all patterns.
 
-**Discourse Persistence**: Surface fingerprints disrupted; discourse-level patterns persist through paraphrasing.
+**Discourse Persistence**: Surface patterns disrupted; deeper structural patterns persist through paraphrasing.
 
-**Arms Race**: No method is permanent. Detectors will improve.
+**Continuous Improvement**: No method is permanent. Writing quality standards evolve.
 
-**Semantic Drift**: #1 failure mode — quiet claim changes, missing numbers, collapsed qualifiers. Always run Semantic Drift Protocol.
+**Semantic Drift**: #1 failure mode — quiet claim changes, missing numbers, collapsed qualifiers. Always verify meaning preservation.
 
-**Structural vs Lexical**: Word-level changes have near-zero impact on detection. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Prioritize structure over vocabulary.
+**Structural vs Lexical**: Word-level changes have near-zero impact. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Prioritize structure over vocabulary.
 
-**Silent Failures**: Text that passes all grep checks but fails spectral analysis. Most dangerous mode. Requires cross-model rewriting or back-translation to fix.
+**Silent Failures**: Text that passes surface checks but doesn't read naturally. Requires multiple passes and external feedback to catch.
