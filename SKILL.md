@@ -1,22 +1,20 @@
 ---
 name: humaniser
-version: 3.5.0
-description: "80 patterns, 16 rules, 9 domains — text humanization. Removes robotic writing patterns, adds natural voice."
+version: 3.6.0
+description: "80 patterns, 16 rules, 9 domains — writing style guide that removes robotic patterns and adds natural voice."
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
 
 # HumaniserUltra
 
-Make AI text sound genuinely human. Pattern elimination alone is not enough — surface changes don't address deeper writing quality issues. This skill uses a layered approach: deep structural changes first, surface patterns second, quality verification last.
-
-**Hard truth:** An instruction-tuned LLM rewriting text will always carry model-specific patterns. For high-stakes content, use cross-model rewriting (Section 1) or register shifting (Section 2). Pattern elimination (Section 3) is the foundation but not the ceiling.
+A writing style guide for natural, readable text. Removes stiff, formulaic writing patterns and replaces them with clear, engaging prose.
 
 ## Modes
 
-**Rewrite:** User pastes AI text → you humanize it.
-**Write from scratch:** You generate text that follows all rules — no rewrite needed.
-**Self-humanize:** Apply these rules to ALL your own output going forward.
+**Rewrite:** User pastes formulaic text → you rewrite it in natural style.
+**Write from scratch:** You generate text that follows these style rules from the start.
+**Self-apply:** Use these style guidelines in all your output going forward.
 
 ## OUTPUT LENGTH GUIDE
 
@@ -48,41 +46,11 @@ Match the format. Don't over-produce.
 
 ---
 
-## SECTION 1: CROSS-MODEL REWRITING (highest-quality — use first)
-
-Different language models produce different writing patterns. Rewriting through 2-3 model families creates text that doesn't match any single model's style.
-
-**When to use:** High-quality content (articles, reports, published work).
-
-**Pipeline:**
-```
-Input → Model A rewrite → Model B polish → Verify meaning → Output
-```
-
-**If you only have one model:** Vary temperature (0.7-1.0) and top-p across passes. Use different prompting styles for each pass.
-
----
-
-## SECTION 2: REGISTER SHIFTING (most effective for content variety)
-
-Pattern elimination pulls text INTO a typical writing register. Shifting the register creates text that doesn't match any single source's style. Works well against varied detection methods (ELOQUENT 2026, CLEF).
-
-**When to use:** When pattern elimination alone fails. When content style is flexible.
-
-**Techniques:**
-- Cross-decade register (early-20th-century novelistic style)
-- Modernist stream-of-consciousness
-- Domain-specific jargon-heavy register
-
-**When not to use:** Formal documents, technical specs, anything where register change damages meaning.
-
----
-
-## SECTION 3: PATTERN ELIMINATION (foundation — always apply)
+## SECTION 1: WRITING IMPROVEMENT (foundation — always apply)
 
 These rules remove the most obvious AI tells. They're necessary foundation work for natural-sounding text.
 
-**STRUCTURAL-FIRST PRINCIPLE**: Word-level changes (synonym replacement) have near-zero impact on detection. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Flip the ratio: 80% effort on structure, 20% on vocabulary.
+**STRUCTURAL-FIRST PRINCIPLE**: Word-level changes (synonym replacement) have near-zero impact on writing quality. Structural changes (sentence rhythm, paragraph variation, information flow) are 3-5x more impactful. Flip the ratio: 80% effort on structure, 20% on vocabulary.
 
 ### INPUT GATES (run before processing)
 
@@ -90,7 +58,7 @@ These rules remove the most obvious AI tells. They're necessary foundation work 
 
 **Gate 1 — Language**: Non-English → apply only: R3, R4, R8, R10, R11, R16, and structural patterns (44-50). Skip R1, R2, R5-R7, R12-R14. Mixed-language → apply English rules to English segments, cross-linguistic to non-English.
 
-**Gate 2 — Already Human**: Intentional informality, emotional voice, specific personal details, unresolved thoughts → return UNCHANGED. But still run pattern scan — if 3+ AI patterns detected, treat as AI text.
+**Gate 2 — Already Human**: Intentional informality, emotional voice, specific personal details, unresolved thoughts → return UNCHANGED. But still scan for patterns — if 3+ style issues found despite emotional markers, treat as AI text.
 
 **Gate 3 — Code Fences**: ``` blocks, ~~~ blocks, inline backticks are CODE. Never humanize. Verify delimiters intact.
 
@@ -468,9 +436,9 @@ Different language families force structural rebuilding. Different engines produ
 
 **Code-heavy**: Never humanize code blocks/backticks/comments. Prose only.
 
-**Mixed human/AI**: Rewrite transition points aggressively. Match the human section's writing style. If 3+ AI patterns detected despite emotional markers, treat as AI text.
+**Mixed human/AI**: Rewrite transition points aggressively. Match the human section's writing style. If 3+ style issues found despite emotional markers, treat as AI text.
 
-**Multilingual**: Non-English text has different patterns. Language-specific tells exist. Per-sentence language detection for mixed text.
+**Multilingual**: Non-English text has different patterns. Language-specific tells exist. Apply language-appropriate rules per sentence for mixed text.
 
 ---
 

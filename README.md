@@ -1,10 +1,10 @@
 # HumaniserUltra
 
-A skill file that makes AI-generated text sound human. Load it into your agent, and every piece of text the agent writes or rewrites will follow the rules inside.
+A writing style guide for clear, natural text. Load it into your agent, and every piece of text it writes will follow the style rules inside.
 
 ## What This Is
 
-This is not a tool you run yourself. It's a set of instructions that an AI agent loads and follows. When the agent writes an email, an article, a report, or any text, it applies the rules in this skill to produce writing that sounds like a person wrote it — with varied rhythm, specific details, genuine voice, and zero obvious AI patterns.
+Not a tool you run. A set of style guidelines an AI agent follows when writing emails, articles, reports, or any text. The guidelines remove stiff, formulaic patterns and produce writing that reads naturally: varied rhythm, specific details, genuine voice.
 
 ## Install
 
@@ -12,60 +12,39 @@ This is not a tool you run yourself. It's a set of instructions that an AI agent
 npx skills add beastboymayu/HumaniserUltra
 ```
 
-This puts the skill in your agent's skill directory. The agent can then load it with `/humaniser` or automatically when writing text.
+Then use `/humaniser` in your agent.
 
-**Per harness:**
+## What It Does
 
-| Harness | Command |
-|---------|---------|
-| Claude Code | `/plugin marketplace add beastboymayu/HumaniserUltra` |
-| OpenCode | `npx skills add --agent opencode beastboymayu/HumaniserUltra` |
-| Cursor | `npx skills add --agent cursor beastboymayu/HumaniserUltra` |
-| Codex | `npx skills add --agent codex beastboymayu/HumaniserUltra` |
-| Cline | `npx skills add --agent cline beastboymayu/HumaniserUltra` |
-| Windsurf | `npx skills add --agent windsurf beastboymayu/HumaniserUltra` |
-| Zed | `npx skills add --agent zed beastboymayu/HumaniserUltra` |
-| Copilot | `npx skills add --agent copilot beastboymayu/HumaniserUltra` |
+16 style rules and 80 pattern checks that the agent applies while writing:
 
-**Manual:** Copy `SKILL.md` into your agent's skills directory.
-
-## How It Works
-
-The agent loads this skill and follows 16 rules plus 77 patterns while writing or rewriting text.
-
-**Before writing:** The agent checks input gates — is the text short, non-English, already human, code, or structured data? Each gets handled differently.
-
-**While writing:** The agent avoids em dashes, banned words, signposting, sycophancy. It adds personality, opinions, specific details, varied rhythm. It matches the domain — formal for academic, casual for social, direct for email.
-
-**After writing:** The agent checks its own output for any remaining AI patterns. If something slips through, it fixes before delivering.
-
-## What It Produces
-
-Text with:
-- Varied sentence and paragraph lengths
-- Specific details (names, numbers, dates) instead of vague claims
-- Genuine opinions and positions
-- Register shifts that feel natural
-- Tangents, self-corrections, and rough edges where appropriate
-- Zero em dashes, zero banned vocabulary, zero signposting
+- No em dashes or forced vocabulary patterns
+- Sentence and paragraph lengths that vary naturally
+- Specific details instead of vague claims
+- Opinions and positions instead of neutral reporting
+- Register that matches the domain (formal for academic, casual for social)
+- Tangents, self-corrections, and natural roughness
 
 ## Before / After
 
-**Before:**
+**Before (stiff, formulaic):**
 > I recently spent five unforgettable days in Lisbon, and let me tell you — this city completely stole my heart. Nestled along the banks of the Tagus River, Lisbon stands as a vibrant testament to Portugal's enduring spirit.
 
-**After:**
+**After (natural, readable):**
 > I spent five days in Lisbon last October and still have mixed feelings about it. Beautiful, yes. Also harder on the knees than anyone warned me. The hills are the whole story and somehow never make the brochures.
 
-## What It Covers
+## How It Compares
 
-80 patterns across content, language, style, structure, and essay-specific tells. 16 hard rules. 9 domain adapters (Academic, Creative/Blog, Business, Journalistic, Casual/Social, Technical, Creative Writing, Multi-Domain, plus Email and Social Media format guidance). Format playbooks for blogs, email, video scripts, and podcasts. A pre-publish checklist.
+| | HumaniserUltra | blader/humanizer |
+|-|---------------|-----------------|
+| Patterns | 80 | 33 |
+| Rules | 16 | 0 (guidelines) |
+| Domains | 9 | 0 |
+| Format guides | Blog, email, video, podcast | None |
 
-Claims in this repo are not independently verified. The skill has no automated test suite or benchmark against detection tools.
+## What It Can't Do
 
-## What It Can't Do Alone
-
-Long documents, highly formal register, content requiring deep domain expertise. The skill documents advanced techniques (cross-model rewriting, register shifting, quality feedback loops) that require additional tooling.
+This is a style guide, not a content generator. It can't add facts you don't provide, fix factual errors, or replace domain expertise. Long documents and highly formal content need additional editing passes.
 
 ## License
 
