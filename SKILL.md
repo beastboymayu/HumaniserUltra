@@ -1,6 +1,6 @@
 ---
 name: humaniser
-version: 3.4.0
+version: 3.5.0
 description: "88 patterns, 16 rules, 11 domains — professional text humanization. Removes AI writing patterns and replaces them with natural voice. Based on adversarial NLP research (ACL/EMNLP/NAACL/AAAI 2024-2026), detection method analysis (GPTZero, Turnitin, Originality.ai, WaveDetect, FourierGPT), and analysis of competing humanizer tools (blader/humanizer, harshaneel/humanize)."
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
@@ -189,11 +189,21 @@ Patterns 51-77 are reference categories (model fingerprints, spectral analysis, 
 50. **Nominalizations**: "implementation of" → "implementing".
 
 ### Essay-Specific (fix these in personal/creative writing)
-51. **Smooth Timeline**: AI moves milestone-to-milestone without detours. Add parenthetical asides, self-corrections, memory triggers, forward references. Let the current topic trigger a memory — jump without "This reminds me of..."
+51. **Smooth Timeline**: AI moves milestone-to-mileline without detours. Add parenthetical asides, self-corrections, memory triggers, forward references. Let the current topic trigger a memory — jump without "This reminds me of..."
 52. **Predictable Paragraph Pattern**: AI uses "example → explanation → takeaway" every time. Alternate: burst (1-2 sentences), slow build, inverted pyramid, catalog, contrast without resolution.
 53. **Contrast Overuse**: AI defaults to "X wanted Y. The result was Z." Rotate: analogy, causation, classification, concession, question, hypophora, metanoia. If three paragraphs all use contrast, the fourth should use something else.
 54. **Uniform Confidence**: AI is equally certain throughout. Modulate: flat assertion for facts, slight hedge for supported claims, strong hedge for speculation, open uncertainty when genuinely unsure. Change your mind mid-essay. Include weak evidence alongside strong.
-55. **Fabricated Anecdotes**: AI claims "I remember..." with impossible specificity. Use: hypotheticals ("Imagine..."), collective voice ("Every developer has..."), observed behavior ("Watch a PM receive..."), anonymous expert ("Most engineers will tell you..."), detail without "I" ("The coffee was cold."). Also: don't gesture at emotion — anchor it in concrete detail. "I felt surprise" is generic. "I refreshed the analytics dashboard every four minutes for three hours" is specific. Don't say "I watched the chart and felt something" — say what you actually saw and what you actually did next.
+55. **Fabricated Anecdotes**: AI claims "I remember..." with impossible specificity. Use: hypotheticals ("Imagine..."), collective voice ("Every developer has..."), observed behavior ("Watch a PM receive..."), anonymous expert ("Most engineers will tell you..."), detail without "I" ("The coffee was cold.").
+56. **Self-Aware AI Narrator**: AI writing about being AI or like AI. Never do this. Write AS a human, not ABOUT being human-like.
+57. **Bold Take Hedge**: "Here is where I lose the room at conferences" pre-hedges a contrarian opinion. State the opinion directly without pre-framing it as controversial.
+58. **Tidy Aphoristic Closer**: "That is not a methodology. It is a personality trait. And you cannot certify for that." — quotable one-liner wrapping the thesis. End on a specific detail, a question, or just stop. Don't wrap it up.
+59. **Even Pacing**: Every example gets ~equal space. Human writers linger on what interests them and rush past the rest. Spend 3 sentences on the thing you care about, 1 sentence on the thing you don't.
+60. **Systematizing Habit**: Turning fuzzy concepts into crisp yes/no tests or clean frameworks. "Does the system decide which tools to call...? If yes, agent. If no, automation." Leave some things fuzzy.
+61. **Generic Completeness**: Covers every expected topic evenly. Missing the surprising angle, the thing nobody talks about, the tangent that doesn't advance the argument but is true.
+62. **Contrast as Default Move**: "The scope problem is not really about scope. It is about..." — contrast used as the primary rhetorical device across paragraphs. Rotate through other devices.
+63. **No Dead-End Tangents**: Every digression circles back. Real essays have tangents that don't return — thoughts that trail off, observations that don't connect to the thesis.
+64. **Missing Lived Friction**: No typos, no awkward sentences, no "wait, let me reconsider" moments. Add 1-2 deliberately imperfect sentences.
+65. **Tidy Conclusion**: Clean, quotable ending that wraps everything up. Replace with: a specific detail, a question that hangs, or just stop mid-thought. Also: don't gesture at emotion — anchor it in concrete detail. "I felt surprise" is generic. "I refreshed the analytics dashboard every four minutes for three hours" is specific. Don't say "I watched the chart and felt something" — say what you actually saw and what you actually did next.
 56. **Self-Aware AI Narrator**: AI writes in first person about being an AI, running on "the same loop" as agents it describes. This is a strong tell — an AI reflecting on being like an AI is AI performing self-awareness. Fix: write from a human perspective about technology, not from an AI perspective about itself. Use genuine human experience ("I've spent 10 years building these systems") not simulated self-awareness ("I run on the same loop").
 57. **"Bold Take" Hedge**: AI signals a controversial opinion ("Here's where I'll lose people") then states something safe and well-reasoned. Simulates risk-taking without actually taking risks. Fix: either take a genuinely challenging position OR don't frame it as bold. If the opinion is mainstream, just state it without the performative disclaimer.
 58. **Even Pacing Across Examples**: AI gives each example exactly one paragraph with the same structure: one fact, one anecdote, one verdict. Human writers linger on what interests them and rush past the rest. Fix: spend 3 paragraphs on your best example, 2 sentences on the weakest. Let your genuine interest dictate pacing.
