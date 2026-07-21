@@ -1,18 +1,20 @@
 # HumaniserUltra
 
-A friendly writing assistant that helps your text sound more like you wrote it.
+A skill file that makes AI-generated text sound human. Load it into your agent, and every piece of text the agent writes or rewrites will follow the rules inside.
 
-Ever read something and thought "this feels like a robot wrote it"? That's what this skill fixes. It catches the patterns that make writing feel stiff and formulaic, then helps you add the voice, personality, and specificity that make it sound human.
+## What This Is
+
+This is not a tool you run yourself. It's a set of instructions that an AI agent loads and follows. When the agent writes an email, an article, a report, or any text, it applies the rules in this skill to produce writing that sounds like a person wrote it — with varied rhythm, specific details, genuine voice, and zero obvious AI patterns.
 
 ## Install
-
-One command, works everywhere:
 
 ```bash
 npx skills add beastboymayu/HumaniserUltra
 ```
 
-Or per harness:
+This puts the skill in your agent's skill directory. The agent can then load it with `/humaniser` or automatically when writing text.
+
+**Per harness:**
 
 | Harness | Command |
 |---------|---------|
@@ -25,52 +27,27 @@ Or per harness:
 | Zed | `npx skills add --agent zed beastboymayu/HumaniserUltra` |
 | Copilot | `npx skills add --agent copilot beastboymayu/HumaniserUltra` |
 
-Manual install:
+**Manual:** Copy `SKILL.md` into your agent's skills directory.
 
-```bash
-# Any harness
-mkdir -p .agents/skills/humaniser && cp SKILL.md .agents/skills/humaniser/
+## How It Works
 
-# Claude Code
-mkdir -p ~/.claude/skills/humaniser && cp SKILL.md ~/.claude/skills/humaniser/
+The agent loads this skill and follows 16 rules plus 77 patterns while writing or rewriting text.
 
-# OpenCode
-mkdir -p ~/.config/opencode/skills/humaniser && cp SKILL.md ~/.config/opencode/skills/humaniser/
-```
+**Before writing:** The agent checks input gates — is the text short, non-English, already human, code, or structured data? Each gets handled differently.
 
-## Usage
+**While writing:** The agent avoids em dashes, banned words, signposting, sycophancy. It adds personality, opinions, specific details, varied rhythm. It matches the domain — formal for academic, casual for social, direct for email.
 
-```
-/humaniser
-[paste your text]
-```
+**After writing:** The agent checks its own output for any remaining AI patterns. If something slips through, it fixes before delivering.
 
-Write from scratch:
+## What It Produces
 
-```
-/humaniser
-Write me an email asking for a raise
-```
-
-Match your voice:
-
-```
-/humaniser
-Here's how I write: [paste your writing sample]
-Now write this in my voice: [topic]
-```
-
-## What It Does
-
-It catches the patterns that make writing feel stiff. No em dashes everywhere. No "delve" or "tapestry" or "robust." No "Let's dive in" or "Great question!" No rule-of-three forcing. No hedged assertions.
-
-Then it adds what stiff writing is missing. Personality. Opinions. Specific details instead of "research shows." Register shifts mid-paragraph. Tangents and self-corrections. The messy parts that make writing feel like a person wrote it.
-
-Covers 12 domains: Academic, Creative, Business, Journalistic, Casual/Social, Legal, Medical, Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain. Each has its own rules. Legal preserves terms of art. Academic keeps passive voice in Methods. Medical keeps "Furthermore" because that's how clinicians actually write.
-
-Handles the tricky stuff too. Six input gates catch short text, non-English, already-human writing, code blocks, tables, and injection vectors. Voice calibration matches your writing style from a sample. Long documents get chunked with a voice bible so paragraph 40 sounds like paragraph 1.
-
-Every output gets checked: em dashes, banned words, signposting, burstiness, entity preservation, domain matching. If anything fails, it fixes before returning.
+Text with:
+- Varied sentence and paragraph lengths
+- Specific details (names, numbers, dates) instead of vague claims
+- Genuine opinions and positions
+- Register shifts that feel natural
+- Tangents, self-corrections, and rough edges where appropriate
+- Zero em dashes, zero banned vocabulary, zero signposting
 
 ## Before / After
 
@@ -80,25 +57,13 @@ Every output gets checked: em dashes, banned words, signposting, burstiness, ent
 **After:**
 > I spent five days in Lisbon last October and still have mixed feelings about it. Beautiful, yes. Also harder on the knees than anyone warned me. The hills are the whole story and somehow never make the brochures.
 
-## File Structure
+## What It Covers
 
-```
-HumaniserUltra/
-├── SKILL.md              # The skill
-├── README.md             # This file
-├── AGENTS.md             # Quick reference for agents
-├── LICENSE               # MIT
-└── .claude-plugin/
-    └── plugin.json       # Claude Code marketplace manifest
-```
-
-## What It's Good At
-
-Casual content, short text, mixed human/AI text, emails, blog posts, social media, creative writing. Anywhere you want writing that sounds like a person wrote it.
+77 patterns across content, language, style, structure, and spectral analysis. 16 hard rules. 12 domain adapters (Academic, Creative, Business, Journalistic, Casual/Social, Legal, Medical, Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain). Format playbooks for blogs, email, video scripts, and podcasts. A pre-publish checklist.
 
 ## What It Can't Do Alone
 
-Academic submissions, high-stakes published content, long documents against multiple analysis tools. For those, it has advanced techniques documented in the skill (cross-model rewriting, register shifting, quality feedback loops).
+Academic submissions, high-stakes published content, long documents. For those, the skill documents advanced techniques (cross-model rewriting, register shifting, quality feedback loops) that require additional tooling.
 
 ## License
 
