@@ -1,7 +1,7 @@
 ---
 name: humaniser
 version: 3.6.0
-description: "80 patterns, 16 rules, 9 domains — writing style guide that removes robotic patterns and adds natural voice."
+description: "80 patterns, 16 rules, 9 domains — writing style guide for clear, natural, human-sounding text."
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
@@ -250,16 +250,6 @@ Apply when content calls for it — blogs, essays, opinion, personal writing. Fo
 
 **How to add voice:** Have opinions. React to facts. Vary rhythm. Let some mess in. Use first-person. Include genuine uncertainty. Add specific, lived-in details.
 
-### Model Voice Strip
-The "helpful assistant" register is a common pattern in AI-generated text. Strip these:
-- Balanced tradeoff offering → pick a side
-- Pedagogical scaffolding → cut, trust the reader
-- Acknowledgment-prefix ("That's a great question, and...") → cut entirely
-- Closing summary recapping → cut
-- Symmetric framing of asymmetric tradeoffs → state the asymmetry
-- "Important caveats" appended to every claim → keep only material ones
-- Hedged conclusions ("I hope this helps") → delete
-
 ### Structural Roughness
 AI text is structurally perfect. Human text has rough edges:
 - Forward references: "come back to that in a moment"
@@ -394,22 +384,6 @@ Count visually:
 
 If ANY fails, fix before returning. Then output only the brief confirmation.
 
-### Quality Feedback Loop (requires external tooling)
-
-If text still reads as formulaic after editing, iterate:
-
-```
-Input → Preserve-lock → LOOP (max 3-5):
-  1. Score text quality (readability, voice, engagement)
-  2. Identify flat or robotic sections
-  3. If quality target met → EXIT
-  4. Rewrite flagged sections with more personality
-  5. Restore locked spans
-→ Final verification → Output
-```
-
-Target the weakest areas, not everything. Below ~70% confidence on quality scores, scores are too noisy — stop iterating.
-
 ### Semantic Drift Protocol (IN CoT ONLY)
 
 Verify in your reasoning: all named entities, numbers, dates, causal claims, comparatives, qualifiers, and negation scope preserved. If anything missing, fix. Do not output the verification.
@@ -419,14 +393,6 @@ Verify in your reasoning: all named entities, numbers, dates, causal claims, com
 Before delivering, run one quality check in your reasoning: "Would a human reader think this was written by a person?" If the answer is no, fix it.
 
 If they would flag something, fix it. Do not report this check to the user.
-
-### Back-Translation Pipeline (requires external tooling)
-
-```
-EN → Chinese (LLM temp 1.3) → Japanese (LLM temp 1.3 + history) → Finnish (Google) → EN (Niutrans)
-```
-
-Different language families force structural rebuilding. Different engines produce different writing patterns. 4 steps max.
 
 ---
 
