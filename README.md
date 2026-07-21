@@ -59,11 +59,13 @@ Text with:
 
 ## What It Covers
 
-80 patterns across content, language, style, structure, and essay-specific tells. 16 hard rules. 12 domain adapters (Academic, Creative/Blog, Business, Journalistic, Casual/Social, Legal, Medical, Technical, Creative Writing, Grant Proposals, Resumes/CVs, Multi-Domain). Format playbooks for blogs, email, video scripts, and podcasts. A pre-publish checklist.
+80 patterns across content, language, style, structure, and essay-specific tells. 16 hard rules. 9 domain adapters (Academic, Creative/Blog, Business, Journalistic, Casual/Social, Technical, Creative Writing, Multi-Domain, plus Email and Social Media format guidance). Format playbooks for blogs, email, video scripts, and podcasts. A pre-publish checklist.
+
+Claims in this repo are not independently verified. The skill has no automated test suite or benchmark against detection tools.
 
 ## What It Can't Do Alone
 
-Academic submissions, high-stakes published content, long documents. For those, the skill documents advanced techniques (cross-model rewriting, register shifting, quality feedback loops) that require additional tooling.
+Long documents, highly formal register, content requiring deep domain expertise. The skill documents advanced techniques (cross-model rewriting, register shifting, quality feedback loops) that require additional tooling.
 
 ## License
 

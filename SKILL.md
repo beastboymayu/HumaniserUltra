@@ -1,7 +1,7 @@
 ---
 name: humaniser
 version: 3.5.0
-description: "80 patterns, 16 rules, 12 domains — professional text humanization. Removes AI writing patterns and replaces them with natural voice. Based on academic NLP research (ACL/EMNLP/NAACL/AAAI 2024-2026), text quality analysis, and analysis of competing humanizer tools."
+description: "80 patterns, 16 rules, 9 domains — text humanization. Removes robotic writing patterns, adds natural voice."
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
@@ -486,17 +486,9 @@ Different language families force structural rebuilding. Different engines produ
 
 **Casual/Social**: Contractions, slang, fragments. Platform-native. Twitter: hot takes. LinkedIn: story-driven. Reddit: evidence-backed.
 
-**Legal**: Preserve precision, Bluebook citations, terms of art. "It is well established that" is standard phrasing, not AI. Passive voice in citations is correct.
-
-**Medical**: Terminology precision, specific dosing, statistical language. "Furthermore" and "is associated with" are standard clinical language — do not replace.
-
 **Technical**: Second person, present tense, active voice. Code blocks untouched. Include edge cases, version-specific behavior, known issues.
 
 **Creative Writing**: Varied pacing, lived-in sensory details, unreliable narrators, character voice. Never apply to technical documentation.
-
-**Grant Proposals**: Follow funder structure exactly (NIH Specific Aims, NSF Project Description). "Transformative" is NIH terminology — preserve.
-
-**Resumes/CVs**: Action verbs are expected, not AI. Quantify ("increased X by Y%"). ATS keywords must stay. Never remove "led," "managed," "developed."
 
 **Multi-Domain**: If text spans multiple domains, identify PRIMARY domain by content majority. Apply other domains locally. Ensure voice continuity.
 
