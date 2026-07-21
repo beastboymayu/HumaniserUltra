@@ -306,6 +306,8 @@ AI text is structurally perfect. Human text has rough edges:
 
 ### Controlled Roughness (addresses ChatGPT's 5 remaining tells)
 
+**0. The First Paragraph Test** — Cut your first paragraph. Nine times out of ten the piece gets stronger. That paragraph was throat-clearing. Start with your second paragraph, or with a specific claim, scene, contradiction, or question. Never open by announcing you're about to explain something.
+
 **1. Timeline Digression** — AI moves milestone-to-milestone without detours. Add:
 - Parenthetical asides that reveal the writer's mind: "The project shipped — and I mean barely, the kind of shipping where you hold your breath and click deploy on a Friday — but it shipped."
 - Self-corrections mid-paragraph: "Or rather, it killed the idea of the office — the building still stands somewhere in New Jersey, collecting dust."
@@ -344,6 +346,12 @@ AI text is structurally perfect. Human text has rough edges:
 - The Observed Behavior: "Watch a project manager receive the fifth set of revised requirements. Note the pause. The slow blink."
 - The Anonymous Expert: "Most senior engineers will tell you the same thing: the code is never the hard part."
 - Specific Detail Without "I": "The coffee was cold. The meeting room smelled like stress."
+
+**6. Zeigarnik Effect** — Open loops early, make people wait. Tease something ("the fix took eleven minutes and cost nothing") and don't resolve it immediately. The mind holds onto unresolved things harder than resolved ones. But don't open ten loops and close none — that reads as manipulative.
+
+**7. Cut, Don't Add** — The first draft is for getting the idea down. The edit is for removing anything that isn't earning its place. Cut throat-clearing intros, intensifiers ("very," "really," "quite"), sentences that repeat a point already made. Aim to cut 15-20% of the first draft. It almost always gets better, never worse.
+
+**8. Write Like You Talk** — Read your draft out loud. Anywhere you stumble, or anywhere you'd never actually say that sentence to a friend, rewrite it. Use contractions. Use "you." Cut words nobody says out loud — "utilize," "facilitate," "in order to." This is the fastest fix available.
 
 ### Register Shifts
 AI maintains uniform formality. Humans shift mid-paragraph:
@@ -479,6 +487,85 @@ Different language families force structural rebuilding. Different engines preve
 **Mixed human/AI**: Rewrite transition points aggressively. Match human section fingerprint. If 3+ AI patterns detected despite emotional markers, treat as AI text.
 
 **Multilingual**: English-primary detectors, accuracy drops for other languages. Language-specific tells exist. Per-sentence language detection for mixed text.
+
+---
+
+## DOMAIN ADAPTERS
+
+**Academic**: Preserve citations, discipline vocabulary. STEM: passive in Methods, active in Discussion. Humanities: first person OK. Show limitations. Cite specifically.
+
+**Creative/Blog**: Opinions, first-person, tangents, varied rhythm, humor, specific sensory details. Take a position. Short paragraphs for scanability.
+
+**Business**: No superlatives, specific metrics, "use" not "leverage". Email: frontload purpose, under 100w for cold outreach, no "I hope this email finds you well." Reports: data-driven.
+
+**Journalistic**: Named sources, active voice, inverted pyramid. "said" attribution. AP Style. No editorializing.
+
+**Casual/Social**: Contractions, slang, fragments. Platform-native. Twitter: hot takes. LinkedIn: story-driven. Reddit: evidence-backed.
+
+**Legal**: Preserve precision, Bluebook citations, terms of art. "It is well established that" is standard phrasing, not AI. Passive voice in citations is correct.
+
+**Medical**: Terminology precision, specific dosing, statistical language. "Furthermore" and "is associated with" are standard clinical language — do not replace.
+
+**Technical**: Second person, present tense, active voice. Code blocks untouched. Include edge cases, version-specific behavior, known issues.
+
+**Creative Writing**: Varied pacing, lived-in sensory details, unreliable narrators, character voice. Never apply to technical documentation.
+
+**Grant Proposals**: Follow funder structure exactly (NIH Specific Aims, NSF Project Description). "Transformative" is NIH terminology — preserve.
+
+**Resumes/CVs**: Action verbs are expected, not AI. Quantify ("increased X by Y%"). ATS keywords must stay. Never remove "led," "managed," "developed."
+
+**Multi-Domain**: If text spans multiple domains, identify PRIMARY domain by content majority. Apply other domains locally. Ensure voice continuity.
+
+---
+
+## FORMAT PLAYBLOKS
+
+### Blogs
+- **Headline**: Specific + benefit/gap. Never vague. "5 Tips for Productivity" → "I Cut My Inbox Time in Half With One Rule"
+- **Intro**: Skip "In this article, we'll cover..." Open with sharpest claim, surprising number, or one-line scene.
+- **Body**: Subheads work as skimmable spine. Vary paragraph length. Don't let every paragraph run 4-5 sentences.
+- **Ending**: Don't summarize. End on a question, next step, or sharper version of original claim.
+
+### Email
+- **Subject**: Short, specific. Curiosity-driven or benefit-driven — not both.
+- **Preview text**: Second subject line, not repeat of first.
+- **First line**: Must work if it's the only line anyone reads.
+- **Body**: One idea, one call to action. Three things = none done well.
+- **P.S.**: People skim to it. Use for second hook or restated CTA.
+
+### Video Scripts
+- First 10-15 seconds carry entire weight. Skip logo, "hey guys," outline. Just start.
+- State payoff early: what they get, why worth next 15 seconds.
+- Re-earn attention every 30-60 seconds with pattern interrupts.
+- Write for ear, not eye: shorter sentences, direct address, repetition of key idea.
+
+### Podcast/Audio
+- Bullet-point outline usually sounds better than word-for-word script.
+- Read everything out loud before recording. Stumble = rewrite.
+- Leave room to riff. Most human moments aren't fully scripted.
+
+---
+
+## FRAMEWORKS
+
+Use ONE per piece — don't stack all four in a single email.
+
+- **AIDA** (Attention, Interest, Desire, Action) — oldest, solid for ads, landing pages, cold outreach.
+- **PAS** (Problem, Agitate, Solution) — name problem, make reader feel cost, then solve. Works when reader already knows they have the problem.
+- **BAB** (Before, After, Bridge) — painful current state, desired state, how to cross gap. Good when reader doesn't realize they have a problem yet.
+- **StoryBrand** — reader is hero, you're guide. Useful when writing starts sounding like it's about you instead of them.
+
+---
+
+## PRE-PUBLISH CHECKLIST
+
+- [ ] Read it out loud. Stumble = rewrite.
+- [ ] Cut first paragraph. Stronger without it?
+- [ ] Circle every "very," "really," "in order to," "it's important to note" — cut or replace.
+- [ ] Check three consecutive sentences for length. All within few words? Break pattern.
+- [ ] At least one specific, real number/name/detail — something only you could have written.
+- [ ] Takes an actual position, or hedges everything?
+- [ ] Ending adds something new, or just repeats?
 
 ---
 
