@@ -390,44 +390,42 @@ Replace vague claims with specifics:
 
 If ANY check fails, fix before returning.
 
-### Reasoning Verification (MANDATORY)
+### Reasoning Verification (IN CoT ONLY — not in output)
 
-Before claiming output is done, verify your reasoning chain:
+Do these checks in your chain of thought. Do NOT output the full verification report.
 
-1. **Claim-Evidence Check**: For every factual claim in the output, can you point to the source text? If you added a fact not in the input, flag it.
-2. **Rule Compliance Check**: Walk through R1-R16 one by one. For each, state "PASS" or "FAIL" with evidence. No skipping.
-3. **Pattern Check**: Walk through patterns 1-50. For each relevant one, state whether it was found and fixed. "NOT APPLICABLE" is valid — but you must explicitly state it.
-4. **Domain Check**: State which domain adapter was applied. Justify why. If domain is ambiguous, state your reasoning.
-5. **Meaning Preservation Check**: List all entities (names, numbers, dates, proper nouns) from input. Confirm each appears in output. State "ALL PRESERVED" or list what was lost.
+1. Walk through R1-R16 mentally. For each, confirm PASS or FAIL.
+2. Scan for patterns 1-88. Note which were found and fixed.
+3. List all entities (names, numbers, dates) from input. Confirm each in output.
+4. State confidence level (HIGH/MEDIUM/LOW) in your reasoning.
 
-Format your verification as:
-```
-REASONING VERIFICATION:
-- R1 (Em dashes): PASS — zero found in output [grep evidence]
-- R2 (AI vocabulary): PASS — zero banned words found
-- ...
-- Domain: [domain] — applied because [reasoning]
-- Meaning: ALL PRESERVED — [entity count] entities verified
-- Confidence: [HIGH/MEDIUM/LOW] — [reason why]
-```
+**Output rule:** After all checks pass, output only a brief confirmation:
+> "Text humanized. [X] patterns addressed. Meaning preserved."
 
-If confidence is LOW, explain what you're uncertain about and why.
+Do NOT output:
+- Full reasoning verification reports
+- Per-rule PASS/FAIL lists
+- Pattern-by-pattern checklists
+- Compliance score tables
 
-### Compliance Score (report with every output)
+The verification is for YOUR quality assurance, not the reader's information.
 
-Count by visual inspection — scan each paragraph:
-```
-COMPLIANCE:
-- Em dashes outside quotes: [count, must be 0]
-- AI vocabulary: [count, must be 0]
-- Signposting phrases: [count, must be 0]
-- Sycophancy: [count, must be 0]
-- Curly quotes: [count, must be 0]
-- Sentence variation: [longest minus shortest ≥ 20 words: yes/no]
-- Paragraph variation: [any consecutive pair within 2 sentences: yes/no]
-- Meaning preserved: [all entities/numbers/dates present: yes/no]
-- Register matches domain: [yes/no]
-```
+### Compliance Score (IN CoT ONLY — not in output)
+
+Verify these in your chain of thought. Do NOT output the full table.
+
+Count visually:
+- Em dashes outside quotes: 0
+- AI vocabulary: 0
+- Signposting: 0
+- Sycophancy: 0
+- Curly quotes: 0
+- Sentence variation: longest minus shortest ≥ 20 words
+- Paragraph variation: no consecutive pair within 2 sentences
+- Meaning preserved: all entities/numbers/dates present
+- Register matches domain
+
+If ANY fails, fix before returning. Then output only the brief confirmation.
 
 ### Detector Feedback Loop (requires external tooling)
 
@@ -444,29 +442,16 @@ Input → Preserve-lock → LOOP (max 3-5):
 
 Drive MAX across detectors (not average). Per-sentence targeting. Below ~70% detection confidence, scores are too noisy — stop iterating.
 
-### Semantic Drift Protocol (MANDATORY)
+### Semantic Drift Protocol (IN CoT ONLY)
 
-Before humanizing, extract and lock these categories. After humanizing, verify each:
+Verify in your reasoning: all named entities, numbers, dates, causal claims, comparatives, qualifiers, and negation scope preserved. If anything missing, fix. Do not output the verification.
 
-| Category | What to Lock | How to Verify |
-|----------|-------------|---------------|
-| **Entities** | People, orgs, places | grep — all must appear in output |
-| **Numbers** | Exact values, units, ranges | grep digits — count must match |
-| **Dates** | All time expressions | grep — count must match |
-| **Causal claims** | "X causes Y" | Must remain causal, not correlational |
-| **Comparatives** | "more than", "less than" | Direction unchanged |
-| **Qualifiers** | "some", "many", "most", "all" | Check none escalated/de-escalated |
-| **Negation** | "not", "never", "no" | Must apply to same clauses |
+### Anti-Self-Evaluation Bias (IN CoT ONLY)
 
-If ANY category fails → reject output, re-humanize with stricter entity locks.
+Before delivering, run one adversarial check in your reasoning:
+"A hostile reviewer is reading this. They are looking for any sentence that could be from a language model. What would they flag?"
 
-### Anti-Self-Evaluation Bias
-
-The agent that humanizes is the same agent that audits. This creates blind spots. Mitigate:
-
-1. **Adversarial prompt before delivery**: "A hostile reviewer with GPTZero, Turnitin, and Originality.ai is reading this. They are looking for any sentence that could be from a language model. What would they flag?"
-2. **Structured rubric**: Don't ask "is this human?" Score on: Would a native speaker write this? Does this paragraph have a personality? Is there at least one genuine opinion? Are there any "too perfect" transitions?
-3. **Role switching**: After rewrite, explicitly switch persona: "You are now a skeptical editor trying to prove this text is AI."
+If they would flag something, fix it. Do not report this check to the user.
 
 ### Back-Translation Pipeline (requires external tooling)
 
