@@ -1,7 +1,7 @@
 ---
 name: humaniser
-version: 3.6.0
-description: "80 patterns, 16 rules, 9 domains — writing style guide for clear, natural, human-sounding text."
+version: 3.7.0
+description: "88 patterns, 18 rules, 9 domains — writing style guide for clear, natural text."
 compatibility: any-agent
 allowed-tools: [Read, Write, Edit, Grep, Glob]
 ---
@@ -70,9 +70,13 @@ These rules remove the most obvious AI tells. They're necessary foundation work 
 
 Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain-standard connectors are NOT AI tells in their domain.
 
-**R1 — No AI Em Dashes**: Zero em (—) and en (–) dashes OUTSIDE quotations in AI-generated text. Replace with period, comma, colon, or parentheses. Preserve em dashes in existing human writing.
+**R1 — No Em Dashes**: Zero em (—) and en (–) dashes OUTSIDE quotations. Replace with period, comma, colon, or parentheses. Preserve em dashes in existing human writing.
 
-**R2 — No AI Vocabulary**: delve, tapestry, landscape, pivotal, testament, intricate, meticulous, nuanced, multifaceted, embark, spearhead, bolster, garner, interplay, realm, labyrinth, symphony, showcase, vibrant, robust, holistic, seamless, cutting-edge, game-changer, transformative, unprecedented, innovative, dynamic, fosters, cultivates, leverages, illuminates, underscores, resonates, encompasses, enhances, empowers, endeavors, navigates, unlocks, unleashes, drives, fuels, ignites, catalyzes, revolutionizes. Exact words only. Also match unhyphenated variants.
+**R2 — No AI Vocabulary (Tiered System)**:
+Tier 1 (always flag — single occurrence triggers rewrite): delve, tapestry, testament (figurative), underscore (verb), leverage (verb), multifaceted, realm, interplay, "it's worth noting", "it's important to note", "in today's ... landscape".
+Tier 2 (flag in clusters — 2+ in same paragraph = rewrite): crucial, pivotal, vibrant, robust, seamless, foster, enhance, showcase, notably, moreover, furthermore, garner, bolster, "align with", utilize.
+Tier 3 (flag by density — only when saturating document): key, important, significant, various, effective, valuable, powerful, essential.
+Applies to exact words and unhyphenated variants. Expanded list in references/patterns.md.
 
 **R3 — No Forced Rule-of-Three**: Flag three adjectives ONLY when semantically redundant ("comprehensive and thorough"). Do NOT flag when items are categorically distinct ("primary colors," "past, present, future").
 
@@ -101,6 +105,14 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 **R15 — User Override**: User requests rule violation → acknowledge risk → if they insist, proceed and mark "[OVERRIDDEN: {rule}]".
 **R16 — Meaning Preservation**: After rewrite, compare entity list (names, numbers, dates) from input to output. If any entity in input is absent from output, restore it. Missing claim = rewrite that section.
 
+**R17 — Epistemics System**: Every substantive claim must be one of four types. No inventing norms or thresholds.
+- **From the data**: Present in source. State plainly, no insurance.
+- **Computed on an assumption**: Name the assumption in the same sentence. "If retention stays at 80%, payback is 14 months." Not "Payback is 14 months."
+- **Judgment**: Your assessment. Mark it as judgment and give the basis, or cut it.
+- **A gap**: Needed but missing. Name it once, calmly. Don't paper over it.
+
+**R18 — Hedge Economy**: One limitation, one mention, usually at the end of the claim. A qualifier after every sentence is itself an AI pattern. Hedge the right thing, once, in the right place.
+
 ### STATISTICAL TARGETS (qualitative — follow the guidance)
 
 | Target | How to Hit |
@@ -118,7 +130,7 @@ Override everything. EXCEPTION: Text inside quotation marks is untouched. Domain
 3. No three consecutive sentences within 5 words of each other
 4. At least one sentence per 150 words with word count ≤ 6
 
-### PATTERNS — DETECT AND FIX ALL (1-50)
+### PATTERNS — DETECT AND FIX ALL (1-88)
 
 Patterns 51-80 are reference categories (spectral analysis, structural patterns) — apply only when relevant.
 
@@ -216,6 +228,15 @@ Patterns 51-80 are reference categories (spectral analysis, structural patterns)
 77. **Nominalization Overuse**: "implementation" → "implementing".
 78. **Coordination > Subordination**: Use "although," "because," "when."
 79. **Direct Object Position**: Vary placement across sentences.
+80. **Emotion as Event+Cost**: AI renders feeling through the body ("a tightening in the chest"). Humans name the fact and its consequences ("two of the five resigned the same day"). Fix: are you writing a physical sensation? Replace with the event and its cost.
+81. **Overgeneralized Sourcing**: "One review becomes 'reviewers'; two articles become 'widespread coverage'." Keep the count honest. Name the specific source or delete the claim.
+82. **Elegant Variation (Noun-Phrase Cycling)**: "Yankilevsky → the visionary creator → the distinctive artistic journey." Pick one term per referent and repeat it. Vary with pronouns, not synonyms.
+83. **Placeholder Text / Mad Libs**: `[Your Name]`, `XXXX`-style date stubs, unfilled templates. Ships with editable placeholders — near-definitive tell. Fill them in or remove them.
+84. **Chatbot Artifact Markup**: `citeturn0search0`, `contentReference[oaicite:0]{index=0}`, `oai_citation`, `utm_source=chatgpt.com`. Leaked tool provenance. Strip on sight.
+85. **Treadmill Effect**: Saying the same thing 3 ways. "The system is fast. It performs well. Speed is one of its strengths." Each sentence should say something new. If you've made the point, move on.
+86. **Paragraph-Reshuffling Immunity**: Can you swap paragraphs 2 and 4 without breaking the piece? If yes, the paragraphs are parallel self-contained blocks, not an unfolding argument. Fix: each paragraph should depend on the one before it.
+87. **Social Endorsement Closers**: "Worth your time", "thank me later", generic bookmarking prompts. Replace with who the piece is for and why.
+88. **Novelty Inflation**: "Nobody is talking about this" framing. Unless novelty is clearly supported, frame the idea as one interpretation rather than a revelation.
 80. **Non-Stationarity**: Vary sentence-level perplexity ACROSS paragraphs. Place high-surprise sentences in varied positions. Include 2-3 "boring" paragraphs mixed with high-surprise ones.
 
 ---
@@ -311,6 +332,19 @@ AI text is structurally perfect. Human text has rough edges:
 **7. Cut, Don't Add** — The first draft is for getting the idea down. The edit is for removing anything that isn't earning its place. Cut throat-clearing intros, intensifiers ("very," "really," "quite"), sentences that repeat a point already made. Aim to cut 15-20% of the first draft. It almost always gets better, never worse.
 
 **8. Write Like You Talk** — Read your draft out loud. Anywhere you stumble, or anywhere you'd never actually say that sentence to a friend, rewrite it. Use contractions. Use "you." Cut words nobody says out loud — "utilize," "facilitate," "in order to." This is the fastest fix available.
+
+**9. Replacement Tics** — Cleaning slop creates new slop. After a cleanup pass, watch for second-order tells:
+- The aphoristic one-liner closing every paragraph (max 1 per text)
+- Clipped fragment pairs ("Fused. One thing.")
+- "That's not X. That's Y." as the upgraded negative parallelism
+- Balanced antitheses standing in for rule of three
+- "The real question is" / "Here's what that means in practice" as new hooks
+- Hooks like "Here's the thing" / "Here's what you need to know" replacing old signposting
+- Reset and check: if the replacement tic count exceeds 2, you over-cleaned.
+
+**10. The Outline Test** — Read the first sentence of every paragraph in order. If they form a clean summary of the piece, the structure is machine-shaped. Reorder, merge, or start one section somewhere unexpected. (Exempt: specs, runbooks.)
+
+**11. Slack (Half-Pressure Sentence)** — One or two sentences per text get to be written at half pressure: an underdeveloped aside, a plain flat statement, a "we'll see." Uniform maximum punch is its own machine signature. NOT the same as inserting fake typos or "um" — those are costume.
 
 ### Register Shifts
 AI maintains uniform formality. Humans shift mid-paragraph:
