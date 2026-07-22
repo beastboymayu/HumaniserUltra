@@ -16,7 +16,7 @@ Then use `/humaniser` in your agent.
 
 ## What It Does
 
-16 style rules and 80 pattern checks that the agent applies while writing:
+18 style rules and 88 pattern checks that the agent applies while writing:
 
 - No em dashes or forced vocabulary patterns
 - Sentence and paragraph lengths that vary naturally
@@ -37,8 +37,8 @@ Then use `/humaniser` in your agent.
 
 | | HumaniserUltra | blader/humanizer |
 |-|---------------|-----------------|
-| Patterns | 80 | 33 |
-| Rules | 16 | 0 (guidelines) |
+| Patterns | 88 | 33 |
+| Rules | 18 | 0 (guidelines) |
 | Domains | 9 | 0 |
 | Format guides | Blog, email, video, podcast | None |
 
