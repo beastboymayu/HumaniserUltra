@@ -263,7 +263,9 @@ AI text is structurally perfect. Human text has rough edges:
 
 ### Controlled Roughness (addresses ChatGPT's 5 remaining tells)
 
-**0. The First Paragraph Test** — Cut your first paragraph. Nine times out of ten the piece gets stronger. That paragraph was throat-clearing. Start with your second paragraph, or with a specific claim, scene, contradiction, or question. Never open by announcing you're about to explain something.
+**0. Creative Temperature** — When rewriting, use higher temperature settings (0.7-1.3) for creative variation. This produces more natural word choices and unpredictable sentence rhythms. Carry previous drafts as conversation history so each pass builds on the last rather than reverting.
+
+**00. The First Paragraph Test** — Cut your first paragraph. Nine times out of ten the piece gets stronger. That paragraph was throat-clearing. Start with your second paragraph, or with a specific claim, scene, contradiction, or question. Never open by announcing you're about to explain something.
 
 **1. Timeline Digression** — AI moves milestone-to-milestone without detours. Add:
 - Parenthetical asides that reveal the writer's mind: "The project shipped — and I mean barely, the kind of shipping where you hold your breath and click deploy on a Friday — but it shipped."
@@ -318,6 +320,8 @@ AI maintains uniform formality. Humans shift mid-paragraph:
 - Serious → wry: Dry observation in analytical prose
 - Objective → opinionated: Take a position after evidence
 
+**Language hopping**: When rewriting, routing through distant languages (Chinese → Japanese → Finnish) forces different grammatical structures. Each hop breaks predictable patterns. Use this for texts that feel structurally rigid.
+
 ### Specificity Injection
 Replace vague claims with specifics:
 - "Research shows" → named source + date + finding
@@ -367,22 +371,19 @@ Do NOT output:
 
 The verification is for YOUR quality assurance, not the reader's information.
 
-### Compliance Score (IN CoT ONLY — not in output)
+### Quality Check (report with every output)
 
-Verify these in your chain of thought. Do NOT output the full table.
+Output only a brief quality summary:
+> "Text rewritten. [X] patterns addressed. Quality verified."
 
-Count visually:
-- Em dashes outside quotes: 0
-- AI vocabulary: 0
-- Signposting: 0
-- Sycophancy: 0
-- Curly quotes: 0
-- Sentence variation: longest minus shortest ≥ 20 words
-- Paragraph variation: no consecutive pair within 2 sentences
-- Meaning preserved: all entities/numbers/dates present
-- Register matches domain
+In your chain of thought, evaluate against these dimensions (from humanize-text v1.5 benchmarking):
+- **Readability**: Does the text flow naturally when read aloud?
+- **Fluency**: Are sentences grammatically sound and varied?
+- **Style Adaptability**: Does the register match the target domain?
+- **Creativity & Impact**: Are there unexpected word choices and engaging phrasings?
+- **Information Completeness**: Are all original points preserved?
 
-If ANY fails, fix before returning. Then output only the brief confirmation.
+If ANY fails, fix before returning.
 
 ### Semantic Drift Protocol (IN CoT ONLY)
 
